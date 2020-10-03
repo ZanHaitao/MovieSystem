@@ -1,3 +1,2 @@
 require('./models/init');
-
-require('./mock/mockCinema')
+require('./mock/mockOrder')

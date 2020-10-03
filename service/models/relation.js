@@ -7,6 +7,7 @@ const Order = require('./Table/Order');
 const Screens = require('./Table/Screens');
 const MovieService = require('./Table/MovieService');
 const Session = require('./Table/Session');
+const CinemaScreens = require('./Table/CinemaScreens');
 
 // 影院关系
 City.hasMany(Cinema);
@@ -27,10 +28,12 @@ Screens.hasMany(Session);
 Session.belongsTo(Screens);
 
 // 影厅信息关系
-Cinema.hasMany(Screens);
-Screens.belongsTo(Cinema);
+Cinema.hasMany(CinemaScreens);
+CinemaScreens.belongsTo(Cinema);
+Screens.hasMany(CinemaScreens);
+CinemaScreens.belongsTo(Screens);
 
-// 影厅服务关系
+// 影院服务关系
 Cinema.hasMany(MovieService);
 MovieService.belongsTo(Cinema);
 

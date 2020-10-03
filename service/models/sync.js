@@ -8,6 +8,7 @@ require('./Table/MovieType');
 require('./Table/Session');
 require('./Table/Admin');
 require('./Table/Banner');
+require('./Table/CinemaScreens');
 
 const sequelize = require('./db');
 

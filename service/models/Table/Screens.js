@@ -14,7 +14,7 @@ module.exports = sequelize.define('Screens', {
         allowNull: false
     },
     seat: {
-        type: DataTypes.STRING,
+        type: DataTypes.STRING(10000),
         allowNull: false
     }
 }, {
