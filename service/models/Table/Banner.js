@@ -8,6 +8,10 @@ module.exports = sequelize.define('Banner', {
     imgUrl: {
         type: DataTypes.STRING,
         allowNull: false
+    },
+    title: {
+        type: DataTypes.STRING,
+        allowNull: false
     }
 }, {
     createdAt: true,

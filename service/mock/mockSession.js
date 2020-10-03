@@ -168,7 +168,9 @@ async function setData() {
     let CinemaId = 1836;
 
     while (CinemaId < 2995) {
-        const res = await CinemaScreensService.getCinemaScreensListById(CinemaId)
+        const res = await CinemaScreensService.getCinemaScreensFindAll({
+            CinemaId:CinemaId
+        })
         const screenArr = []; // 影厅
         for (const item of res) {
             screenArr.push(item.Screen.id)
