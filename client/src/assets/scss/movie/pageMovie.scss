@@ -1,0 +1,17 @@
+.page-move{
+    .el-pagination.is-background{
+        text-align: center;
+        margin: 20px 0 50px;
+        .el-pager li:not(.disabled).active{
+            background-color: #EF4238;
+        }
+
+        &.el-pager li:not(.disabled):hover{
+            color: #EF4238;
+        }
+
+        .el-pager li:not(.disabled).active.el-pager li:not(.disabled):hover{
+            color: #fff !important;
+        }
+    }
+}

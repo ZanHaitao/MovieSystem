@@ -1,0 +1,55 @@
+.page-index{
+
+    & .banner{
+        width: 100%;
+
+        img{
+            width: 100%;
+        }
+    }
+
+    .container{
+        width: 100%;
+        overflow: hidden;
+        margin: 50px 0 100px;
+
+        .left-content{
+            width: 980px;
+            float: left;
+
+            .host-movie,.future-movie{
+                padding: 0 30px;
+
+                .title{
+                    font-size: 28px;
+                    color: #EF4238;
+                    margin-bottom: 10px;
+
+                    span{
+                        float: right;
+                        font-size: 16px;
+                        font-weight: 500;
+                        cursor: pointer;
+                        margin-top: 10px;
+                    }
+                }
+            }
+
+            .future-movie{
+                margin-top: 30px;
+
+                .title{
+                    color: #2DB4F8;
+                }
+            }
+        }
+    
+        .right-content{
+            width: 420px;
+            height: 300px;
+            float: left;
+        }
+    }
+
+    
+}

@@ -1,12 +1,16 @@
 const express = require('express');
 const path = require('path');
 const app = express();
+var history = require('connect-history-api-fallback');
 
 // 监听端口
 const port = 80;
 app.listen(port, () => {
     console.log("服务器启动成功 访问：http://localhost");
 })
+
+// 处理单页应用
+app.use(history());
 
 // 处理静态资源中间件
 const statcRoot = path.resolve(__dirname, '../public');

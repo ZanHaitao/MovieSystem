@@ -76,7 +76,10 @@ exports.getBannerFindAll = async function(page = 1, limit = 10, options = {}) {
         where,
         offset: (page - 1) * limit,
         limit: +limit,
-        attributes: ['id', 'title', 'imgUrl']
+        attributes: ['id', 'title', 'imgUrl'],
+        order:[
+            ['id','DESC']
+        ]
     });
 
     return {

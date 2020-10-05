@@ -1,0 +1,47 @@
+.category{
+    width: 100%;
+    border: 1px solid rgba($color: #000000, $alpha: 0.1);
+    padding: 20px;
+    border-radius: 5px;
+    margin: 30px 0;
+    box-sizing: border-box;
+
+    dl{
+        border-bottom: 1px solid rgba($color: #000000, $alpha: 0.1);
+        padding: 10px 0;
+        overflow: hidden;
+
+        &:nth-child(3){
+            border: none;
+            dt{
+                height: 30px;
+            }
+        }
+        dt{
+            height: 60px;
+            line-height: 30px;
+            padding:0 30px;
+            float: left;
+            overflow: hidden;
+        }
+
+        dd{
+            float: left;
+            height: 30px;
+            line-height: 30px;
+            padding: 0 15px;
+            cursor: pointer;
+            &.typeActive,&.areaActive,&.yearActive{
+                background-color: #EF4238;
+                color: #fff;
+                border-radius: 15px;
+                &:hover{
+                    color: #fff;
+                }
+            }
+            &:hover{
+                color: #EF4238;
+            }
+        }
+    }
+}
