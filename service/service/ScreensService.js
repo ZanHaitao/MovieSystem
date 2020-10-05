@@ -1,6 +1,6 @@
 const Screens = require('../models/Table/Screens');
 const { pick } = require('../util/propertayHelper');
-
+const { Op } = require("sequelize");
 /**
  * 添加影厅
  * @param {*} screensObj 
@@ -16,7 +16,7 @@ exports.addScreens = async function(screensObj) {
  * @param {*} id 
  * @param {*} screensObj 
  */
-exports.updateScreen = async function(id, screensObj) {
+exports.updateScreens = async function(id, screensObj) {
     screensObj = pick(screensObj, 'name', 'people', 'seat')
     return await Screens.update(screensObj, {
         where: {
@@ -29,11 +29,12 @@ exports.updateScreen = async function(id, screensObj) {
  * 删除影厅
  * @param {*} id 
  */
-exports.deleteScreen = async function(id) {
+exports.deleteScreens = async function(id) {
     return await Screens.destroy({
         where: {
             id,
-        }
+        },
+        attributes: ['id', 'name', 'people', 'seat']
     })
 }
 
@@ -64,12 +65,12 @@ exports.getScreensFindAll = async function(page = 1, limit = 10, options = {}) {
     options = pick(options, 'name', 'people');
 
     const where = {};
-    if ('name' in options) {
+    if ('name' in options && options.name) {
         where.name = {
             [Op.like]: `%${options.name}%`
         }
     }
-    if ('people' in options) {
+    if ('people' in options && options.people) {
         where.people = {
             [Op.like]: `%${options.people}%`
         }

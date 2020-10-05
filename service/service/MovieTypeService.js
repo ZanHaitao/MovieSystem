@@ -1,7 +1,6 @@
-const { async } = require('validate.js');
 const MovieType = require('../models/Table/MovieType');
 const { pick } = require('../util/propertayHelper');
-
+const { Op } = require("sequelize");
 /**
  * 添加电影类别
  * @param {*} movieTypeObj 
@@ -44,7 +43,9 @@ exports.deleteMovieType = async function(id) {
  * @param {*} id 
  */
 exports.getMovieTypeFindById = async function(id) {
-    const result = await MovieType.findByPk(id)
+    const result = await MovieType.findByPk(id,{
+        attributes: ['id', 'typeName', 'type']
+    })
     if (result) {
         return result.toJSON();
     }
@@ -65,12 +66,12 @@ exports.getMovieTypeFindAll = async function(page = 1, limit = 10, options = {})
     options = pick(options, 'typeName', 'type');
 
     const where = {};
-    if ('typeName' in options) {
+    if ('typeName' in options && options.typeName) {
         where.typeName = {
             [Op.like]: `%${options.typeName}%`
         }
     }
-    if ('type' in options) {
+    if ('type' in options && options.type) {
         where.type = {
             [Op.like]: `%${options.type}%`
         }

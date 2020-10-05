@@ -4,7 +4,7 @@ const Cinema = require('../models/Table/Cinema');
 const Movie = require('../models/Table/Movie');
 const Session = require('../models/Table/Session');
 const { pick } = require('../util/propertayHelper');
-
+const { Op } = require("sequelize");
 /**
  * 添加订单
  * @param {*} orderObj 
@@ -48,11 +48,24 @@ exports.deleteOrder = async function(id) {
  */
 exports.getOrderFindById = async function(id) {
     const result = await Order.findByPk(id, {
+        attributes: ['id', 'number', 'UserId', 'CinemaId', 'SessionId', 'MovieId'],
         include: [
-            Movie,
-            Session,
-            Cinema,
-            User
+            {
+                model:Movie,
+                attributes:['id', 'name', 'region', 'type', 'duration', 'publishDate', 'score', 'income', 'introduce', 'imgUrl']
+            },
+            {
+                model:Session,
+                attributes:['id', 'showDate', 'showTime', 'language', 'price', 'CinemaId', 'MovieId', 'ScreenId']
+            },
+            {
+                model:User,
+                attributes:['id', 'name', 'loginId', 'sex', 'birthday', 'mobile']
+            },
+            {
+                model:Cinema,
+                attributes:['id', 'name', 'address', 'mobile', 'imgUrl', 'CityId']
+            }
         ]
     })
     if (result) {
@@ -72,22 +85,22 @@ exports.getOrderFindAll = async function(page = 1, limit = 10, options = {}) {
         throw new Error('配置参数错误！')
     }
 
-    options = pick(options, 'number', 'UserId', 'CinemaId', 'SesssionId', 'MovieId');
+    options = pick(options, 'number', 'UserId', 'CinemaId', 'SessionId', 'MovieId');
 
     const where = {};
-    if ('number' in options) {
+    if ('number' in options && options.number) {
         where.number = options.number
     }
-    if ('UserId' in options) {
+    if ('UserId' in options && options.UserId) {
         where.UserId = options.UserId
     }
-    if ('CinemaId' in options) {
+    if ('CinemaId' in options && options.CinemaId) {
         where.CinemaId = options.CinemaId
     }
-    if ('SesssionId' in options) {
-        where.SesssionId = options.SesssionId
+    if ('SesssionId' in options && options.SessionId) {
+        where.SesssionId = options.SessionId
     }
-    if ('MovieId' in options) {
+    if ('MovieId' in options && options.MovieId) {
         where.MovieId = options.MovieId
     }
 
@@ -96,12 +109,24 @@ exports.getOrderFindAll = async function(page = 1, limit = 10, options = {}) {
         where,
         offset: (page - 1) * limit,
         limit: +limit,
-        attributes: ['id', 'number', 'UserId', 'CinemaId', 'SesssionId', 'MovieId'],
+        attributes: ['id', 'number', 'UserId', 'CinemaId', 'SessionId', 'MovieId'],
         include: [
-            Movie,
-            Session,
-            Cinema,
-            User
+            {
+                model:Movie,
+                attributes:['id', 'name', 'region', 'type', 'duration', 'publishDate', 'score', 'income', 'introduce', 'imgUrl']
+            },
+            {
+                model:Session,
+                attributes:['id', 'showDate', 'showTime', 'language', 'price', 'CinemaId', 'MovieId', 'ScreenId']
+            },
+            {
+                model:User,
+                attributes:['id', 'name', 'loginId', 'sex', 'birthday', 'mobile']
+            },
+            {
+                model:Cinema,
+                attributes:['id', 'name', 'address', 'mobile', 'imgUrl', 'CityId']
+            }
         ]
     });
 

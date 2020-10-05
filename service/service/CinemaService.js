@@ -1,7 +1,7 @@
 const Cinema = require('../models/Table/Cinema');
 const City = require('../models/Table/City');
 const { pick } = require('../util/propertayHelper');
-
+const { Op } = require("sequelize");
 /**
  * 添加影院
  * @param {*} cinemaObj 
@@ -44,7 +44,11 @@ exports.deleteCinema = async function(id) {
  */
 exports.getCinemaFindById = async function(id) {
     let result = await Cinema.findByPk(id, {
-        include: City
+        attributes: ['id', 'name', 'address', 'mobile', 'imgUrl', 'CityId'],
+        include:{
+            model:City,
+            attributes:['id','province','city']
+        }
     });
     if (result) {
         return result.toJSON();
@@ -67,22 +71,20 @@ exports.getCinemaFindAll = async function(page = 1, limit = 10, options = {}) {
     options = pick(options, 'name', 'address', 'mobile', 'CityId');
 
     const where = {};
-    if ('name' in options) {
+    if ('name' in options && options.name) {
         where.name = {
             [Op.like]: `%${options.name}%`
         }
     }
-    if ('address' in options) {
+    if ('address' in options && options.address) {
         where.address = {
             [Op.like]: `%${options.address}%`
         }
     }
-    if ('CityId' in options) {
-        where.CityId = {
-            [Op.like]: `%${options.CityId}%`
-        }
+    if ('CityId' in options && options.CityId) {
+        where.CityId = options.CityId
     }
-    if ('mobile' in options) {
+    if ('mobile' in options && options.mobile) {
         where.mobile = options.mobile
     }
 
@@ -91,7 +93,10 @@ exports.getCinemaFindAll = async function(page = 1, limit = 10, options = {}) {
         offset: (page - 1) * limit,
         limit: +limit,
         attributes: ['id', 'name', 'address', 'mobile', 'imgUrl', 'CityId'],
-        include:City
+        include:{
+            model:City,
+            attributes:['id','province','city']
+        }
     });
 
     return {

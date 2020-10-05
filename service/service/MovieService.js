@@ -1,6 +1,6 @@
 const Movie = require('../models/Table/Movie');
 const { pick } = require('../util/propertayHelper');
-
+const { Op } = require("sequelize");
 /**
  * 添加电影
  * @param {*} movieObj 
@@ -42,7 +42,9 @@ exports.deleteMovie = async function(id) {
  * @param {*} id 
  */
 exports.getMovieFindById = async function(id) {
-    const result = await Movie.findByPk(id)
+    const result = await Movie.findByPk(id, {
+        attributes: ['id', 'name', 'region', 'type', 'duration', 'publishDate', 'score', 'income', 'introduce', 'imgUrl']
+    })
     if (result) {
         return result.toJSON();
     }
@@ -63,42 +65,42 @@ exports.getMovieFindAll = async function(page = 1, limit = 10, options = {}) {
     options = pick(options, 'name', 'region', 'type', 'duration', 'publishDate', 'score', 'income', 'introduce');
 
     const where = {};
-    if ('name' in options) {
+    if ('name' in options && options.name) {
         where.name = {
             [Op.like]: `%${options.name}%`
         }
     }
-    if ('region' in options) {
+    if ('region' in options && options.region) {
         where.region = {
             [Op.like]: `%${options.region}%`
         }
     }
-    if ('type' in options) {
+    if ('type' in options && options.type) {
         where.type = {
             [Op.like]: `%${options.type}%`
         }
     }
-    if ('duration' in options) {
+    if ('duration' in options && options.duration) {
         where.duration = {
             [Op.like]: `%${options.duration}%`
         }
     }
-    if ('publishDate' in options) {
+    if ('publishDate' in options && options.publishDate) {
         where.publishDate = {
             [Op.like]: `%${options.publishDate}%`
         }
     }
-    if ('score' in options) {
+    if ('score' in options && options.score) {
         where.score = {
             [Op.like]: `%${options.score}%`
         }
     }
-    if ('income' in options) {
+    if ('income' in options && options.income) {
         where.income = {
             [Op.like]: `%${options.income}%`
         }
     }
-    if ('introduce' in options) {
+    if ('introduce' in options && options.introduce) {
         where.introduce = {
             [Op.like]: `%${options.introduce}%`
         }

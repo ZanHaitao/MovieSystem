@@ -1,7 +1,7 @@
 const { async } = require('validate.js');
 const Banner = require('../models/Table/Banner');
 const { pick } = require('../util/propertayHelper');
-
+const { Op } = require("sequelize");
 /**
  * 添加Banner广告
  * @param {*} bannerObj 
@@ -39,11 +39,13 @@ exports.deleteBanner = async function(id) {
 }
 
 /**
- * 通过ID查找电影
+ * 通过ID查找Banner广告
  * @param {*} id 
  */
 exports.getBannerFindById = async function(id) {
-    const result = await Banner.findByPk(id)
+    const result = await Banner.findByPk(id,{
+        attributes:['id','imgUrl','title']
+    })
     if (result) {
         return result.toJSON();
     }
@@ -51,7 +53,7 @@ exports.getBannerFindById = async function(id) {
 }
 
 /**
- * 按条件查询电影
+ * 按条件查询Banner广告
  * @param {*} page 
  * @param {*} limit 
  * @param {*} options 
@@ -64,7 +66,7 @@ exports.getBannerFindAll = async function(page = 1, limit = 10, options = {}) {
     options = pick(options, 'title');
 
     const where = {};
-    if ('title' in options) {
+    if ('title' in options && options.title) {
         where.title = {
             [Op.like]: `%${options.title}%`
         }

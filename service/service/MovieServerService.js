@@ -1,7 +1,7 @@
 const MovieService = require('../models/Table/MovieService');
 const Cinema = require('../models/Table/Cinema');
 const { pick } = require('../util/propertayHelper');
-
+const { Op } = require("sequelize");
 /**
  * 添加影院服务
  * @param {*} movieServiceObj 
@@ -44,7 +44,11 @@ exports.deleteMovieService = async function(id) {
  */
 exports.getMovieServiceFindById = async function(id) {
     const result = await MovieService.findByPk(id, {
-        include: Cinema
+        attributes: ['id', 'name', 'content', 'CinemaId'],
+        include: {
+            model:Cinema,
+            attributes:['id', 'name', 'address', 'mobile', 'imgUrl', 'CityId']
+        }
     })
     if (result) {
         return result.toJSON();
@@ -66,17 +70,17 @@ exports.getMovieServiceFindAll = async function(page = 1, limit = 10, options = 
     options = pick(options, 'name', 'content', 'CinemaId');
 
     const where = {};
-    if ('name' in options) {
+    if ('name' in options && options.name) {
         where.name = {
             [Op.like]: `%${options.name}%`
         }
     }
-    if ('content' in options) {
+    if ('content' in options && options.content) {
         where.content = {
             [Op.like]: `%${options.content}%`
         }
     }
-    if ('CinemaId' in options) {
+    if ('CinemaId' in options && options.CinemaId) {
         where.CinemaId = options.CinemaId
     }
 
@@ -85,7 +89,10 @@ exports.getMovieServiceFindAll = async function(page = 1, limit = 10, options = 
         offset: (page - 1) * limit,
         limit: +limit,
         attributes: ['id', 'name', 'content', 'CinemaId'],
-        include: Cinema
+        include: {
+            model:Cinema,
+            attributes:['id', 'name', 'address', 'mobile', 'imgUrl', 'CityId']
+        }
     });
 
     return {

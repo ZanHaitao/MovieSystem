@@ -11,7 +11,8 @@ module.exports = sequelize.define('User', {
     },
     loginId: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: false,
+        // primaryKey: true
     },
     loginPwd: {
         type: DataTypes.STRING,

@@ -3,7 +3,7 @@ const { pick } = require('../util/propertayHelper');
 const Cinema = require('../models/Table/Cinema');
 const Movie = require('../models/Table/Movie');
 const Screens = require('../models/Table/Screens');
-
+const { Op } = require("sequelize");
 /**
  * 添加场次
  * @param {*} sessionObj 
@@ -47,10 +47,20 @@ exports.deleteSession = async function(id) {
  */
 exports.getSessionFindById = async function(id) {
     const result = await Session.findByPk(id,{
+        attributes: ['id', 'showDate', 'showTime', 'language', 'price', 'CinemaId', 'MovieId', 'ScreenId'],
         include:[
-            Cinema,
-            Movie,
-            Screens
+            {
+                model:Movie,
+                attributes:['id', 'name', 'region', 'type', 'duration', 'publishDate', 'score', 'income', 'introduce', 'imgUrl']
+            },
+            {
+                model:Screens,
+                attributes:['id', 'name', 'people', 'seat']
+            },
+            {
+                model:Cinema,
+                attributes:['id', 'name', 'address', 'mobile', 'imgUrl', 'CityId']
+            }
         ]
     })
     if (result) {
@@ -73,33 +83,33 @@ exports.getSessionFindAll = async function(page = 1, limit = 10, options = {}) {
     options = pick(options, 'showDate', 'showTime', 'language', 'price', 'CinemaId', 'MovieId', 'ScreenId');
 
     const where = {};
-    if ('showDate' in options) {
+    if ('showDate' in options && options.showDate) {
         where.showDate = {
             [Op.like]: `%${options.showDate}%`
         }
     }
-    if ('showTime' in options) {
+    if ('showTime' in options && options.showTime) {
         where.showTime = {
             [Op.like]: `%${options.showTime}%`
         }
     }
-    if ('language' in options) {
+    if ('language' in options && options.language) {
         where.language = {
             [Op.like]: `%${options.language}%`
         }
     }
-    if ('price' in options) {
+    if ('price' in options && options.price) {
         where.price = {
             [Op.like]: `%${options.price}%`
         }
     }
-    if ('CinemaId' in options) {
+    if ('CinemaId' in options && options.CinemaId) {
         where.CinemaId = options.CinemaId
     }
-    if ('MovieId' in options) {
+    if ('MovieId' in options && options.MovieId) {
         where.MovieId = options.MovieId
     }
-    if ('ScreenId' in options) {
+    if ('ScreenId' in options && options.ScreenId) {
         where.ScreenId = options.ScreenId
     }
 
@@ -109,9 +119,18 @@ exports.getSessionFindAll = async function(page = 1, limit = 10, options = {}) {
         limit: +limit,
         attributes: ['id', 'showDate', 'showTime', 'language', 'price', 'CinemaId', 'MovieId', 'ScreenId'],
         include:[
-            Cinema,
-            Movie,
-            Screens
+            {
+                model:Movie,
+                attributes:['id', 'name', 'region', 'type', 'duration', 'publishDate', 'score', 'income', 'introduce', 'imgUrl']
+            },
+            {
+                model:Screens,
+                attributes:['id', 'name', 'people', 'seat']
+            },
+            {
+                model:Cinema,
+                attributes:['id', 'name', 'address', 'mobile', 'imgUrl', 'CityId']
+            }
         ]
     });
 

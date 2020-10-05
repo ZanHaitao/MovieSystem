@@ -4,6 +4,26 @@ const { pick } = require('../util/propertayHelper');
 const { Op } = require("sequelize");
 
 /**
+ * 用户登录
+ * @param {*} logindId 
+ * @param {*} loginPwd 
+ */
+exports.loginUser = async function(loginId,loginPwd){
+    loginPwd = md5(loginPwd);
+    const result = await User.findOne({
+        where: {
+            loginId,
+            loginPwd
+        },
+        attributes: ['id', 'name', 'loginId', 'sex', 'birthday', 'mobile']
+    });
+    if (result) {
+        return result.toJSON();
+    }
+    return null;
+}
+
+/**
  * 添加用户
  * @param {*} userObj 
  */
@@ -46,7 +66,9 @@ exports.deleteUser = async function(id) {
  * @param {*} id 
  */
 exports.getUserFindById = async function(id) {
-    const result = await User.findByPk(id)
+    const result = await User.findByPk(id,{
+        attributes: ['id', 'name', 'loginId', 'sex', 'birthday', 'mobile']
+    })
     if (result) {
         return result.toJSON();
     }
@@ -63,33 +85,29 @@ exports.getUserFindAll = async function(page = 1, limit = 10, options = {}) {
     if (typeof options !== 'object') {
         throw new Error('配置参数错误！')
     }
-
     options = pick(options, 'name', 'loginId', 'sex', 'birthday', 'mobile');
-
     const where = {};
-    if ('name' in options) {
+    if ('name' in options && options.name) {
         where.name = {
             [Op.like]: `%${options.name}%`
         }
     }
-    if ('loginId' in options) {
+    if ('loginId' in options && options.name) {
         where.loginId = options.loginId
     }
     if ('sex' in options) {
-        console.log(options.sex);
         if (options.sex != -1 && options.sex == 1 || options.sex == 0) {
             where.sex = options.sex
         }
     }
-    if ('birthday' in options) {
+    if ('birthday' in options && options.birthday) {
         where.birthday = {
             [Op.like]: `%${options.birthday}%`
         }
     }
-    if ('mobile' in options) {
+    if ('mobile' in options && options.mobile) {
         where.mobile = options.mobile
     }
-
     const result = await User.findAndCountAll({
         where,
         offset: (page - 1) * limit,

@@ -4,6 +4,26 @@ const { pick } = require('../util/propertayHelper');
 const { Op } = require("sequelize");
 
 /**
+ * 管理员登录
+ * @param {*} logindId 
+ * @param {*} loginPwd 
+ */
+exports.loginAdmin = async function(loginId,loginPwd){
+    loginPwd = md5(loginPwd);
+    const result = await Admin.findOne({
+        where: {
+            loginId,
+            loginPwd
+        },
+        attributes: ['id', 'name', 'loginId']
+    });
+    if (result) {
+        return result.toJSON();
+    }
+    return null;
+}
+
+/**
  * 添加管理员
  * @param {*} adminObj 管理员对象
  */
@@ -45,7 +65,9 @@ exports.deleteAdmin = async function(id) {
  * @param {*} id 
  */
 exports.getAdminFindById = async function(id) {
-    const result = await Admin.findByPk(id)
+    const result = await Admin.findByPk(id,{
+        attributes: ['id', 'name', 'loginId']
+    })
     if (result) {
         return result.toJSON();
     }

@@ -44,7 +44,9 @@ exports.deleteCity = async function(id) {
  * @param {*} id 
  */
 exports.getCityFindById = async function(id) {
-    const result = await City.findByPk(id)
+    const result = await City.findByPk(id,{
+        attributes:['id','province','city']
+    })
     if (result) {
         return result.toJSON();
     }
@@ -57,7 +59,7 @@ exports.getCityFindById = async function(id) {
  * @param {*} limit 
  * @param {*} key 
  */
-exports.getCityList = async function(page = 1, limit = 10, key = "") {
+exports.getCityFindAll = async function(page = 1, limit = 10, key = "") {
     const result = await City.findAndCountAll({
         where: {
             [Op.or]: [{

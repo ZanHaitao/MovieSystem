@@ -2,6 +2,7 @@ const CinemaScreens = require('../models/Table/CinemaScreens');
 const Screens = require('../models/Table/Screens');
 const Cinema = require('../models/Table/Cinema');
 const { pick } = require('../util/propertayHelper');
+const { Op } = require("sequelize");
 
 /**
  * 添加影厅与影院关系
@@ -45,9 +46,16 @@ exports.deleteCinemaScreens = async function(id) {
  */
 exports.getCinemaScreensFindById = async function(id) {
     const result = await CinemaScreens.findByPk(id,{
+        attributes: ['id', 'ScreenId', 'CinemaId'],
         include: [
-            Screens,
-            Cinema
+            {
+                model:Screens,
+                attributes:['id', 'name', 'people', 'seat']
+            },
+            {
+                model:Cinema,
+                attributes:['id', 'name', 'address', 'mobile', 'imgUrl', 'CityId']
+            }
         ]
     })
     if (result) {
@@ -70,10 +78,10 @@ exports.getCinemaScreensFindAll = async function(page = 1, limit = 10, options =
     options = pick(options, 'ScreenId', 'CinemaId');
 
     const where = {};
-    if ('ScreenId' in options) {
+    if ('ScreenId' in options && options.ScreenId) {
         where.ScreenId = options.ScreenId;
     }
-    if ('CinemaId' in options) {
+    if ('CinemaId' in options && options.CinemaId) {
         where.CinemaId = options.CinemaId;
     }
 
@@ -83,8 +91,14 @@ exports.getCinemaScreensFindAll = async function(page = 1, limit = 10, options =
         limit: +limit,
         attributes: ['id', 'ScreenId', 'CinemaId'],
         include: [
-            Screens,
-            Cinema
+            {
+                model:Screens,
+                attributes:['id', 'name', 'people', 'seat']
+            },
+            {
+                model:Cinema,
+                attributes:['id', 'name', 'address', 'mobile', 'imgUrl', 'CityId']
+            }
         ]
     });
 
