@@ -7,33 +7,43 @@
 
         <div class="container">
             <div class="left-content">
-                <div class="host-movie">
-                    <p class="title">
-                        正在热映
-                        <router-link tag="span" to="/movie">
-                            全部
-                            <i class="el-icon-arrow-right"></i>
-                        </router-link>
-                    </p>
-                    <my-movie :movieList="hostMovie" :type="'defaultMovie'" />
-                </div>
+                <template v-if="hostMovie.length !== 0">
+                    <div class="host-movie">
+                        <p class="title">
+                            正在热映
+                            <router-link tag="span" to="/movie">
+                                全部
+                                <i class="el-icon-arrow-right"></i>
+                            </router-link>
+                        </p>
+                        <my-movie :movieList="hostMovie" :type="'defaultMovie'" />
+                    </div>
+                </template>
 
-                <div class="future-movie">
-                    <p class="title">
-                        即将上映
-                        <router-link tag="span" to="/movie">
-                            全部
-                            <i class="el-icon-arrow-right"></i>
-                        </router-link>
-                    </p>
-                    <my-movie :movieList="futureMovie" :type="'futureMovie'" />
-                </div>
+                <template v-if="futureMovie.length !== 0">
+                    <div class="future-movie">
+                        <p class="title">
+                            即将上映
+                            <router-link tag="span" to="/movie">
+                                全部
+                                <i class="el-icon-arrow-right"></i>
+                            </router-link>
+                        </p>
+                        <my-movie :movieList="futureMovie" :type="'futureMovie'" />
+                    </div>
+                </template>
             </div>
 
             <div class="right-content">
-                <my-ranking :title="'今日票房'" :type="'price'" :listData="highestMovie"/>
-                <my-ranking :title="'最受期待'" :type="'forward'" :listData="forwardMovie"/>
-                <my-ranking :title="'TOP 100'" :type="'likes'" :listData="likesMovie"/>
+                <template v-if="highestMovie.length !== 0">
+                    <my-ranking :title="'今日票房'" :type="'price'" :listData="highestMovie" />
+                </template>
+                <template v-if="forwardMovie.length !== 0">
+                    <my-ranking :title="'最受期待'" :type="'forward'" :listData="forwardMovie" />
+                </template>
+                <template v-if="likesMovie.length !== 0">
+                    <my-ranking :title="'TOP 100'" :type="'likes'" :listData="likesMovie" />
+                </template>
             </div>
         </div>
     </div>
@@ -48,9 +58,9 @@
                 imgUrl: '',
                 hostMovie: [],
                 futureMovie: [],
-                highestMovie:[],
-                forwardMovie:[],
-                likesMovie:[]
+                highestMovie: [],
+                forwardMovie: [],
+                likesMovie: []
             }
         },
         components: {
@@ -66,9 +76,9 @@
                 limit: 25
             }).then(res => {
                 this.hostMovie = res.data.slice(0, 8);
-                this.futureMovie = res.data.slice(8,16);
-                this.highestMovie = res.data.slice(0,5);
-                this.forwardMovie = res.data.slice(5,15);
+                this.futureMovie = res.data.slice(8, 16);
+                this.highestMovie = res.data.slice(0, 5);
+                this.forwardMovie = res.data.slice(5, 15);
                 this.likesMovie = res.data.slice(15);
             })
         },

@@ -3,7 +3,7 @@
         <template v-if="type === 'defaultMovie'">
             <ul class="default">
                 <li v-for="item in movieList" :key="item.id">
-                    <router-link class="movie-img" tag="p" :to="{name:'movie',params:{id:item.id}}">
+                    <router-link class="movie-img" tag="p" :to="{name:'movieDetail',params:{id:item.id}}">
                         <img :src="item.imgUrl" alt="">
                         <span class="detail">
                             <span class="movie-title">{{ item.name }}</span>
@@ -17,7 +17,7 @@
         <template v-else-if = "type === 'futureMovie'">
             <ul class="future">
                 <li v-for="(item,index) in movieList" :key="item.id">
-                    <router-link class="movie-img" tag="p" :to="{name:'movie',params:{id:item.id}}">
+                    <router-link class="movie-img" tag="p" :to="{name:'movieDetail',params:{id:item.id}}">
                         <img :src="item.imgUrl" alt="">
                         <span class="detail">
                             <span class="movie-title">{{ item.name }}</span>
@@ -35,7 +35,7 @@
         <template v-if="type === 'movieList'">
             <ul class="list">
                 <li v-for="item in movieList" :key="item.id">
-                    <router-link class="movie-img" tag="p" :to="{name:'movie',params:{id:item.id}}">
+                    <router-link class="movie-img" tag="p" :to="{name:'movieDetail',params:{id:item.id}}">
                         <img :src="item.imgUrl" alt="">
                         <span class="detail">
                             <span class="movie-title">{{ item.name }}</span>
@@ -47,11 +47,30 @@
                 </li>
             </ul>
         </template>
+
+        <template v-if="type === 'related'">
+            <ul class="related">
+                <li v-for="item in movieList" :key="item.id">
+                    <router-link class="movie-img" tag="p" :to="{name:'movieDetail',params:{id:item.id}}">
+                        <img :src="item.imgUrl" alt="">
+                        <span class="detail">
+                            <span class="movie-title">{{ item.name }}</span>
+                            <span class="movie-score">{{ item.score }}</span>
+                        </span>
+                    </router-link>
+                    <p class="title">{{ item.name }}</p>
+                    <p class="score">{{ item.score }}</p>
+                </li>
+            </ul>
+        </template>
+
         <template v-if="movieList.length === 0">
             <div class="error">
                 抱歉，没有找到相关结果，请尝试用其他条件筛选。
             </div>
         </template>
+
+        
     </div>
 </template>
 

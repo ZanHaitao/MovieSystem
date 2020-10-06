@@ -9,7 +9,7 @@
                         <i class="el-icon-arrow-right"></i>
                     </router-link>
                 </dt>
-                <router-link tag="dl" v-for="(item,index) in listData" :key="item.id" :to="{name:'movie',params:{id:item.id}}">
+                <router-link tag="dl" v-for="(item,index) in listData" :key="item.id" :to="{name:'movieDetail',params:{id:item.id}}">
                     <span class="queue-num">{{ index+1 }}</span>
                     <span>{{ item.name }}</span>
                     <span class="info">{{ item.income }} 亿</span>
@@ -26,7 +26,7 @@
                         <i class="el-icon-arrow-right"></i>
                     </router-link>
                 </dt>
-                <router-link tag="dl" v-for="(item,index) in listData" :key="item.id" :to="{name:'movie',params:{id:item.id}}">
+                <router-link tag="dl" v-for="(item,index) in listData" :key="item.id" :to="{name:'movieDetail',params:{id:item.id}}">
                     <span class="queue-num">{{ index+1 }}</span>
                     <span>{{ item.name }}</span>
                     <span class="info">{{ Math.floor((Math.random() * 1000000 - 100000) + 100000) }} 人想看</span>
@@ -43,7 +43,7 @@
                         <i class="el-icon-arrow-right"></i>
                     </router-link>
                 </dt>
-                <router-link tag="dl" v-for="(item,index) in listData" :key="item.id" :to="{name:'movie',params:{id:item.id}}">
+                <router-link tag="dl" v-for="(item,index) in listData" :key="item.id" :to="{name:'movieDetail',params:{id:item.id}}">
                     <span class="queue-num">{{ index+1 }}</span>
                     <span>{{ item.name }}</span>
                     <span class="info">{{ item.score }} 分</span>

@@ -1,0 +1,120 @@
+.ranking-list {
+    ul {
+        li {
+            display: flex;
+            justify-content: center;
+            height: 290px;
+            padding: 10px;
+            cursor: pointer;
+
+            &:nth-child(1) {
+                .index span {
+                    background: #EF4238;
+                    color: #fff;
+                }
+            }
+
+            &:nth-child(2) {
+                .index span {
+                    background: orange;
+                    color: #fff;
+                }
+            }
+
+            &:nth-child(3) {
+                .index span {
+                    background: green;
+                    color: #fff;
+                }
+            }
+
+            &:nth-child(4) {
+                .index span {
+                    background: palevioletred;
+                    color: #fff;
+                }
+            }
+
+            &:nth-child(5) {
+                .index span {
+                    background: skyblue;
+                    color: #fff;
+                }
+            }
+
+            .index {
+                flex: 1;
+                position: relative;
+
+                span {
+                    display: inline-block;
+                    width: 50px;
+                    text-align: center;
+                    line-height: 50px;
+                    height: 50px;
+                    font-size: 24px;
+                    font-style: italic;
+                    color: #999;
+                    background-color: #F7F7F7;
+                    position: absolute;
+                    right: 60px;
+                    top: 50%;
+                    transform: translateY(-80%);
+                }
+            }
+
+            .movie-image {
+                flex: 1;
+
+                img {
+                    height: 270px;
+                    transition: transform .5s;
+                    box-shadow: 0 0 10px rgba($color: #000000, $alpha: 1);
+
+                    &:hover {
+                        transform: scale(1.2);
+                    }
+                }
+
+            }
+
+            .detail {
+                flex: 4;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                position: relative;
+
+                .title {
+                    font-size: 26px;
+                    margin: 20px 0;
+                }
+
+                .publish {
+                    color: #666;
+                    font-size: 14px;
+                    margin-top: 20px;
+                }
+
+                .first-score,
+                .last-score {
+                    position: absolute;
+                    font-style: italic;
+                    font-weight: bold;
+                    color: #FFB400;
+                }
+
+                .first-score {
+                    font-size: 40px;
+                    right: 100px;
+                }
+
+                .last-score {
+                    font-size: 20px;
+                    right: 85px;
+                    top: 143px;
+                }
+            }
+        }
+    }
+}

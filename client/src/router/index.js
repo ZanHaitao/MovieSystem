@@ -17,8 +17,24 @@ const routes = [{
         path: 'movie',
         name: 'movie',
         component: () => import('../views/movie.vue')
+    }, {
+        path: 'cinema',
+        name: 'cinema',
+        component: () => import('../views/cinema.vue')
+    }, {
+        path: 'ranking',
+        name: 'ranking',
+        component: () => import('../views/ranking.vue')
+    }, {
+        path: 'movieDetail/:id',
+        name: 'movieDetail',
+        component: () => import('../views/movieDetail.vue')
+    }, {
+        path: 'cinemaDetail/:id',
+        name: 'cinemaDetail',
+        component: () => import('../views/cinemaDetail.vue')
     }]
-}, ]
+}]
 
 const router = new VueRouter({
     mode: 'history',

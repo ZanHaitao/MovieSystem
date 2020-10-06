@@ -1,0 +1,91 @@
+.cinema-list {
+    &>.title {
+        font-size: 18px;
+        font-weight: bold;
+        border-left: 5px solid #EF4238;
+        height: 25px;
+        line-height: 25px;
+        padding-left: 10px;
+    }
+
+    & > .error{
+        margin: 50px 0 400px;
+    }
+
+    & .content {
+        &>ul>li {
+            position: relative;
+            border-bottom: 1px dashed #999;
+            padding: 30px 0;
+
+            &:last-child{
+                border: none;
+            }
+
+            .title {
+                font-size: 16px;
+                cursor: pointer;
+                &:hover{
+                    color: #EF4238;
+                }
+            }
+
+            .address {
+                font-size: 14px;
+                color: #999;
+                margin: 15px 0px;
+            }
+
+            .server-list {
+                overflow: hidden;
+
+                &>li {
+                    float: left;
+                    font-size: 12px;
+                    color: #509FC9;
+                    margin-right: 20px;
+                    padding: 2px 5px;
+                    border: 1px solid #509FC9;
+                    border-radius: 3px;
+
+                }
+            }
+
+            .price,
+            .buy-btn {
+                position: absolute;
+            }
+
+            .price {
+                right: 130px;
+                top: 60px;
+                font-size: 18px;
+                color: #EF4238;
+                font-weight: bold;
+                .symbol ,.prompt{
+                    font-size: 12px;
+                }
+                .prompt{
+                    font-weight: normal;
+                    color: #999;
+                }
+            }
+
+            .buy-btn{
+                right: 0;
+                top: 57px;
+                font-size: 14px;
+                border-radius: 15px;
+                padding: 7px 15px;
+                background-color: #EF4238;
+                color: #fff;
+                box-shadow: 0 0 7px rgba($color: #EF4238, $alpha: 0.8);
+                cursor: pointer;
+
+                &:hover{
+                    background-color: #ee645d;
+                }
+            }
+        }
+    }
+}

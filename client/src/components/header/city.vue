@@ -3,11 +3,11 @@
         <p class="location">
             当前定位城市：
             <i class="el-icon-location"></i>
-            厦门市
+            {{selectCity}}市
         </p>
         <dl v-for="value in showCity" :key="value.id">
             <dt>{{ value.province}}</dt>
-            <dd v-for="city in value.cityArr" :key="city">{{ city }}</dd>
+            <dd @click="changeCity(city)" v-for="city in value.cityArr" :key="city">{{ city }}</dd>
         </dl>
     </div>
 </template>
@@ -18,11 +18,26 @@
             cityList: {
                 type: Array,
                 required: true
+            },
+            selectCity: {
+                type: String,
+                required: true
             }
         },
-        data() {
-            return {
+        methods: {
+            changeCity(city) {
 
+                this.$api.getCityList({
+                    key: city.slice(0, city.length - 1)
+                }).then(res => {
+                    this.$store.dispatch('changeCity', {
+                        CityId: res.data[0].id
+                    })
+                })
+
+                if (this.$route.path !== '/cinema') {
+                    this.$router.push({ name: 'cinema' })
+                }
             }
         },
         computed: {

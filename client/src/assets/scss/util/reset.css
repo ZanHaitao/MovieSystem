@@ -132,3 +132,12 @@ table {
 body .el-select-dropdown.el-popper {
     top: 55px !important;
 }
+
+body::-webkit-scrollbar{/*滚动条样式*/
+    width: 10px;
+    height: 0px;
+}
+body::-webkit-scrollbar-thumb{  /*滑块的样式*/
+    border-radius: 5px;
+    background: #d1d4db;
+}

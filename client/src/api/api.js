@@ -41,11 +41,18 @@ export default {
      * @param {*} options
      */
     async getCinemaList(options) {
-        return await axios.get('api/cinema', {
+        return await axios.get('/api/cinema', {
             params: {
                 ...options
             }
         })
+    },
+    /**
+     * 通过id获取影院
+     * @param {*} id
+     */
+    async getCinemaFindById(id) {
+        return await axios.get(`/api/cinema/${id}`)
     },
     /**
      * 获取城市列表
@@ -57,6 +64,13 @@ export default {
                 ...options
             }
         })
+    },
+    /**
+     * 通过id获取城市
+     * @param {*} options
+     */
+    async getCityFindById(id) {
+        return await axios.get(`/api/city/${id}`)
     },
     /**
      * 获取评论列表
@@ -92,6 +106,13 @@ export default {
         })
     },
     /**
+     * 通过id获取电影信息
+     * @param {*} id
+     */
+    async getMovieFindById(id) {
+        return await axios.get(`/api/movie/${id}`)
+    },
+    /**
      * 获取订单列表
      * @param {*} options
      */
@@ -124,6 +145,10 @@ export default {
             }
         })
     },
+    /**
+     * 获取电影类型
+     * @param {*} options
+     */
     async getMovieTypeList(options) {
         return await axios.get('/api/movietype', {
             params: {

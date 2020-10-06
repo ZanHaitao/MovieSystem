@@ -1,0 +1,66 @@
+.cinema-detail {
+
+    &>.nav {
+        margin-top: 80px;
+        margin-bottom: 20px;
+    }
+
+    .el-breadcrumb__inner a:hover,
+    .el-breadcrumb__inner.is-link:hover {
+        color: #EF4238;
+    }
+
+    &>.content {
+        margin-bottom: 100px;
+        display: flex;
+
+        .left-content {
+            width: 1000px;
+            padding-right: 50px;
+            box-sizing: border-box;
+
+            .title {
+                font-size: 18px;
+                font-weight: bold;
+                border-left: 5px solid #EF4238;
+                height: 25px;
+                line-height: 25px;
+                padding-left: 10px;
+                margin: 30px 0;
+            }
+
+            .el-collapse {
+
+                .buy-btn {
+                    background-color: #EF4238;
+                    padding: 2px 10px;
+                    color: #fff;
+                    display: inline-block;
+                    border-radius: 25px;
+                    color: #fff;
+                    cursor: pointer;
+
+                    &:hover {
+                        background-color: #ee645d;
+                    }
+                }
+            }
+        }
+
+        .right-content {
+            width: 400px;
+
+            & > .title {
+                font-size: 18px;
+                font-weight: bold;
+                border-left: 5px solid #EF4238;
+                height: 25px;
+                line-height: 25px;
+                padding-left: 10px;
+                margin: 30px 0;
+            }
+        }
+
+
+    }
+}

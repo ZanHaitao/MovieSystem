@@ -1,0 +1,33 @@
+.movie-detail {
+
+    .el-breadcrumb__inner a:hover, .el-breadcrumb__inner.is-link:hover{
+        color: #EF4238;
+    }
+
+    & > .nav{
+        margin-top: 80px;
+    }
+
+    & .container {
+        display: flex;
+        padding: 50px 0 100px;
+
+        .left-content {
+            width: 1000px;
+        }
+
+        .right-content {
+            width: 400px;
+
+            & > .title {
+                font-size: 18px;
+                font-weight: bold;
+                border-left: 5px solid #EF4238;
+                height: 25px;
+                line-height: 25px;
+                padding-left: 10px;
+                margin-bottom: 20px;
+            }
+        }
+    }
+}
