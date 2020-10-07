@@ -20,6 +20,10 @@ module.exports = sequelize.define('Session', {
     price: {
         type: DataTypes.STRING,
         allowNull: false
+    },
+    seat: {
+        type: DataTypes.STRING(2000),
+        allowNull: true
     }
 }, {
     createdAt: true,

@@ -1,0 +1,80 @@
+.page-register {
+    padding: 100px 0;
+
+    .content {
+        width: 600px;
+        // height: 450px;
+        padding-bottom: 80px;
+        margin: 0 auto;
+        background-color: #fff;
+        border: 1px solid rgba($color: #000000, $alpha: 0.1);
+        border-radius: 3px;
+        transition: box-shadow .5s;
+        box-shadow: 0 0 5px rgba($color: #000000, $alpha: 0.1);
+
+        &:hover {
+            box-shadow: 0 2px 5px 3px rgba($color: #000000, $alpha: 0.1);
+        }
+
+        .logo {
+            margin: 40px auto 40px;
+            width: 195px;
+            height: 80px;
+            background: url(https://s1.ax1x.com/2020/10/07/0aTsmR.png) no-repeat 0;
+            background-position: center;
+            background-size: 195px 65px;
+        }
+
+        .el-form.demo-ruleForm {
+            padding-right: 100px;
+            padding-left: 40px;
+
+            .el-form-item.el-form-item--feedback.is-error {
+                margin: 40px 0;
+            }
+
+            .el-form-item.el-form-item--feedback {
+                margin-bottom: 30px;
+            }
+
+            .el-form-item.el-form-item--feedback.is-error{
+                margin-top: 0;
+                margin-bottom: 30px;
+            }
+
+            .el-form-item.el-form-item--feedback.first{
+                margin-bottom: 30px;
+            }
+
+            .el-form-item.el-form-item--feedback.btn{
+                margin-bottom: 20px;
+            }
+
+            .el-radio__input.is-checked .el-radio__inner{
+                background: #EF4238;
+                border-color: #EF4238;
+            }
+
+            .el-radio__input.is-checked+.el-radio__label{
+                color: #EF4238;
+            }
+
+            .el-button.el-button--primary {
+                background: #EF4238;
+                border-color: #EF4238;
+                padding: 10px 162px;
+            }
+
+            .el-date-editor.el-input.el-input--prefix.el-input--suffix.el-date-editor--date{
+                width: 360px;
+            }
+
+            .el-button.el-button--default {
+                background: #EF4238;
+                border-color: #EF4238;
+                color: #fff;
+                padding: 10px 162px;
+            }
+        }
+    }
+}

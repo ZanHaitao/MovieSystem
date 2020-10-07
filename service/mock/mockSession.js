@@ -1,3 +1,4 @@
+const { log } = require('console');
 const Session = require('../models/Table/Session');
 
 const showDateArr = [
@@ -165,28 +166,35 @@ const SessionService = require('../service/SessionService');
 
 
 async function setData() {
-    let CinemaId = 1836;
+    let CinemaId = 1863;
 
     while (CinemaId < 2995) {
-        const res = await CinemaScreensService.getCinemaScreensFindAll({
-            CinemaId:CinemaId
+        console.log(CinemaId);
+
+        const res = await CinemaScreensService.getCinemaScreensFindAll(1,99999,{
+            CinemaId: CinemaId
         })
+        
         const screenArr = []; // 影厅
-        for (const item of res) {
-            screenArr.push(item.Screen.id)
+        for (const item of res.data) {
+            screenArr.push({
+                id: item.Screen.id,
+                seat: item.Screen.seat
+            })
         }
-        for (const ScreenId of screenArr) {
-            for (let i = 0; i < getRandom(6, 10); i++) {
-                const MovieId = getRandom(1, 180);
-                for (let j = 0; j < getRandom(7, 10); j++) {
+
+        for (let i = 0; i < getRandom(6, 10); i++) {
+            const MovieId = getRandom(1, 180);
+            for (const Screen of screenArr) {
+                for (let j = 0; j < getRandom(2, 5); j++) {
                     const showDate = showDateArr[getRandom(0, showDateArr.length - 1)];
                     const showTime = showTimeArr[getRandom(0, showTimeArr.length - 1)];
                     const language = languageArr[getRandom(0, languageArr.length - 1)];
                     const price = priceArr[getRandom(0, priceArr.length - 1)];
-
                     await SessionService.addSession({
                         CinemaId,
-                        ScreenId,
+                        ScreenId: Screen.id,
+                        seat: Screen.seat,
                         MovieId,
                         showDate,
                         showTime,

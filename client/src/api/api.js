@@ -7,12 +7,22 @@ export default {
      * @param {*} loginPwd
      */
     async userLogin(loginId, loginPwd) {
-        return await axios.post('/api/user/login', {
-            data: {
-                loginId,
-                loginPwd
-            }
+        return await axios().post('/api/user/login', {
+            loginId,
+            loginPwd
         })
+    },
+    /**
+     * 用户身份获取
+     */
+    async whoAmI() {
+        return await axios().post('/api/user/whoami');
+    },
+    /**
+     * 用户添加
+     */
+    async addUser(options) {
+        return await axios().post('/api/user', options);
     },
     /**
      * 用户信息修改
@@ -20,7 +30,7 @@ export default {
      * @param {*} options
      */
     async updateUser(id, options) {
-        return await axios.put(`/api/user/${id}`, {
+        return await axios().put(`/api/user/${id}`, {
             data: {
                 ...options
             }
@@ -30,7 +40,7 @@ export default {
      * 获取banner广告
      */
     async getBanner() {
-        return await axios.get('/api/banner', {
+        return await axios().get('/api/banner', {
             params: {
                 limit: 1
             }
@@ -41,7 +51,7 @@ export default {
      * @param {*} options
      */
     async getCinemaList(options) {
-        return await axios.get('/api/cinema', {
+        return await axios().get('/api/cinema', {
             params: {
                 ...options
             }
@@ -52,14 +62,14 @@ export default {
      * @param {*} id
      */
     async getCinemaFindById(id) {
-        return await axios.get(`/api/cinema/${id}`)
+        return await axios().get(`/api/cinema/${id}`)
     },
     /**
      * 获取城市列表
      * @param {*} options
      */
     async getCityList(options) {
-        return await axios.get('/api/city', {
+        return await axios().get('/api/city', {
             params: {
                 ...options
             }
@@ -70,25 +80,39 @@ export default {
      * @param {*} options
      */
     async getCityFindById(id) {
-        return await axios.get(`/api/city/${id}`)
+        return await axios().get(`/api/city/${id}`)
     },
     /**
      * 获取评论列表
      * @param {*} options
      */
     async getCommentList(options) {
-        return await axios.get('/api/comments', {
+        return await axios().get('/api/comments', {
             params: {
                 ...options
             }
         })
     },
     /**
+     * 通过id查找评论
+     * @param {*} id
+     */
+    async getCommentFindById(id) {
+        return await axios().get(`/api/comments/${id}`)
+    },
+    /**
+     * 发布评论
+     * @param {*} options
+     */
+    async addComment(options) {
+        return await axios().post('/api/comments', options);
+    },
+    /**
      * 获取影院服务
      * @param {*} options
      */
     async getCinemaServiceList(options) {
-        return await axios.get('/api/movieserver', {
+        return await axios().get('/api/movieserver', {
             params: {
                 ...options
             }
@@ -99,7 +123,7 @@ export default {
      * @param {*} options
      */
     async getMovieList(options) {
-        return await axios.get('/api/movie', {
+        return await axios().get('/api/movie', {
             params: {
                 ...options
             }
@@ -110,25 +134,32 @@ export default {
      * @param {*} id
      */
     async getMovieFindById(id) {
-        return await axios.get(`/api/movie/${id}`)
+        return await axios().get(`/api/movie/${id}`)
     },
     /**
      * 获取订单列表
      * @param {*} options
      */
     async getOrderList(options) {
-        return await axios.get('/api/order', {
+        return await axios().get('/api/order', {
             params: {
                 ...options
             }
         })
     },
     /**
+     * 添加订单
+     * @param {*} options
+     */
+    async addOrderList(options) {
+        return await axios().post('/api/order', options)
+    },
+    /**
      * 获取电影影厅列表
      * @param {*} options
      */
     async getScreensList(options) {
-        return await axios.get('/api/screens', {
+        return await axios().get('/api/screens', {
             params: {
                 ...options
             }
@@ -139,18 +170,25 @@ export default {
      * @param {*} options
      */
     async getSessionList(options) {
-        return await axios.get('/api/session', {
+        return await axios().get('/api/session', {
             params: {
                 ...options
             }
         })
     },
     /**
+     * 修改电影场次
+     * @param {*} options
+     */
+    async updateSession(id, options) {
+        return await axios().put(`/api/session/${id}`, options);
+    },
+    /**
      * 获取电影类型
      * @param {*} options
      */
     async getMovieTypeList(options) {
-        return await axios.get('/api/movietype', {
+        return await axios().get('/api/movietype', {
             params: {
                 ...options
             }

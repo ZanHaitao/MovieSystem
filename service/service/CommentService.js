@@ -3,7 +3,7 @@ const { pick } = require('../util/propertayHelper');
 const User = require('../models/Table/User');
 const Movie = require('../models/Table/Movie');
 const { Op } = require("sequelize");
-const Cinema = require('../models/Table/Cinema');
+
 /**
  * 添加评论
  * @param {*} commentObj 
@@ -47,15 +47,17 @@ exports.deleteComment = async function(id) {
 exports.getCommentFindById = async function(id) {
     const result = await Comments.findByPk(id, {
         attributes: ['id', 'content', 'score', 'likes', 'publishDate', 'UserId', 'MovieId'],
-        include: [
-            {
-                model:User,
-                attributes:['id', 'name', 'loginId', 'sex', 'birthday', 'mobile']
+        include: [{
+                model: User,
+                attributes: ['id', 'name', 'loginId', 'sex', 'birthday', 'mobile']
             },
             {
-                model:Movie,
-                attributes:['id', 'name', 'region', 'type', 'duration', 'publishDate', 'score', 'income', 'introduce', 'imgUrl']
+                model: Movie,
+                attributes: ['id', 'name', 'region', 'type', 'duration', 'publishDate', 'score', 'income', 'introduce', 'imgUrl']
             }
+        ],
+        order:[
+            ['id','DESC']
         ]
     })
     if (result) {
@@ -107,15 +109,17 @@ exports.getCommentFindAll = async function(page = 1, limit = 10, options = {}) {
         offset: (page - 1) * limit,
         limit: +limit,
         attributes: ['id', 'content', 'score', 'likes', 'publishDate', 'UserId', 'MovieId'],
-        include: [
-            {
-                model:User,
-                attributes:['id', 'name', 'loginId', 'sex', 'birthday', 'mobile']
+        include: [{
+                model: User,
+                attributes: ['id', 'name', 'loginId', 'sex', 'birthday', 'mobile']
             },
             {
-                model:Movie,
-                attributes:['id', 'name', 'region', 'type', 'duration', 'publishDate', 'score', 'income', 'introduce', 'imgUrl']
+                model: Movie,
+                attributes: ['id', 'name', 'region', 'type', 'duration', 'publishDate', 'score', 'income', 'introduce', 'imgUrl']
             }
+        ],
+        order:[
+            ['id','DESC']
         ]
     });
 

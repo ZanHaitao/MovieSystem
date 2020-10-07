@@ -24,6 +24,9 @@ app.use(cors());
 const cookieParse = require('cookie-parser');
 app.use(cookieParse());
 
+// jwt 登录验证
+app.use(require('./middleware/tokenMiddleware'));
+
 // 解析 application/x-www-form-urlencoded 请求体
 app.use(express.urlencoded({
     extended: true

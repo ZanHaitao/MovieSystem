@@ -53,7 +53,6 @@ exports.updateUser = async function(id, userObj) {
  * @param {*} id 
  */
 exports.deleteUser = async function(id) {
-    userObj = pick(userObj, 'name', 'loginId', 'loginPwd', 'sex', 'birthday', 'mobile')
     return await User.destroy({
         where: {
             id,

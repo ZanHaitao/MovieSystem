@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import defaultPage from '../layout/default.vue';
+import store from '../store/index';
 
 Vue.use(VueRouter)
 
@@ -33,6 +34,18 @@ const routes = [{
         path: 'cinemaDetail/:id',
         name: 'cinemaDetail',
         component: () => import('../views/cinemaDetail.vue')
+    }, {
+        path: 'login',
+        name: 'login',
+        component: () => import('../views/login.vue')
+    }, {
+        path: 'register',
+        name: 'register',
+        component: () => import('../views/register.vue')
+    }, {
+        path: 'payment',
+        name: 'payment',
+        component: () => import('../views/payment.vue')
     }]
 }]
 

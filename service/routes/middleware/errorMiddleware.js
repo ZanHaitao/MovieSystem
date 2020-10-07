@@ -7,8 +7,8 @@
  */
 module.exports = (err, req, res, next) => {
     if (err) {
-        res.status(500).send({
-            code: 500,
+        res.status(403).send({
+            code: 403,
             msg: err instanceof Error ? err.message : err
         });
     } else {

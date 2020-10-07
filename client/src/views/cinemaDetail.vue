@@ -60,7 +60,7 @@
                 cinemaData: {},
                 movieListData: {},
                 activeName: '1',
-                movieListData:[]
+                movieListData: []
             }
         },
         components: {
@@ -72,7 +72,20 @@
         },
         methods: {
             clickHandle(row) {
-                console.log(row)
+                if (this.$store.state.loginUser.name != undefined) {
+                    localStorage.setItem('payment',JSON.stringify(row))
+                    this.$router.push({ name: 'payment' })
+                }else{
+                    this.$router.push({ name: 'login'});
+                    this.warning();
+                }
+            },
+            warning() {
+                this.$notify({
+                    title: '警告',
+                    message: '登录后才可以选座购票！',
+                    type: 'warning'
+                });
             },
             getData() {
                 this.$api.getMovieList({

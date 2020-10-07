@@ -23,10 +23,15 @@
             </el-select>
         </div>
         <div class="login">
-            <span class="portrait"></span>
+            <span class="portrait" :class="{'login-user':loginName != ''}"></span>
             <i class="el-icon-caret-bottom"></i>
             <div class="login-btn">
-                <router-link to="/login">登录</router-link>
+                <template v-if="loginName != ''">
+                    <a @click="cancelLogin" href="javascript:void(0)">注销</a>
+                </template>
+                <template v-else>
+                    <router-link :to="{ name:'login' }">登录</router-link>
+                </template>
             </div>
         </div>
     </div>
@@ -43,13 +48,26 @@
                 value: [],
                 list: [],
                 loading: false,
-                cityName: ''
+                cityName: '',
+                loginName: this.$store.state.loginUser.name ? this.$store.state.loginUser.name : ''
             }
         },
         components: {
             MyCity,
         },
         methods: {
+            cancelLogin() {
+                this.$store.dispatch('changeUser', {});
+                this.success()
+                localStorage.removeItem('token')
+            },
+            success(userName) {
+                this.$notify({
+                    title: '注销成功',
+                    message: `注销成功，期待下次与您相见！`,
+                    type: 'success'
+                });
+            },
             searchMovie(val) {
                 this.$api.getMovieList({
                     name: val
@@ -81,6 +99,9 @@
         computed: {
             CityId() {
                 return this.$store.state.CityId;
+            },
+            UserName() {
+                return this.$store.state.loginUser;
             }
         },
         created() {
@@ -99,6 +120,9 @@
                 this.$api.getCityFindById(this.$store.state.CityId).then(res => {
                     this.cityName = res.city;
                 })
+            },
+            UserName() {
+                this.loginName = this.$store.state.loginUser.name ? this.$store.state.loginUser.name : '';
             }
         },
     }
@@ -107,7 +131,7 @@
 <style lang="scss" scope>
     @import '../../assets/scss/header/header.scss';
 
-    .router-link-exact-active.router-link-active {
+    .nav .router-link-exact-active.router-link-active {
         background-color: #EF4238;
         color: #fff;
     }

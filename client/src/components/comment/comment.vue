@@ -3,6 +3,23 @@
         <div class="title">
             热门短评
         </div>
+        <template v-if="loginUser !== ''">
+            <div class="publish-comment">
+                <el-popover placement="bottom" width="500" trigger="click">
+                    <div class="score">
+                        <span>评分：</span>
+                        <el-rate v-model="score"></el-rate>
+                    </div>
+                    <div class="content">
+                        <p>内容：</p>
+                        <el-input type="textarea" :rows="8" placeholder="请输入内容" v-model="textarea">
+                        </el-input>
+                    </div>
+                    <el-button @click="publishComment">发布</el-button>
+                    <el-button slot="reference">发布评论</el-button>
+                </el-popover>
+            </div>
+        </template>
         <div class="content">
             <template v-if="commentsData.length === 0">
                 <div class="error">
@@ -37,6 +54,7 @@
 </template>
 
 <script>
+    import loginVue from '../../views/login.vue';
     export default {
         props: {
             movieId: {
@@ -47,13 +65,52 @@
         data() {
             return {
                 commentsData: [],
-                likes: [false, false, false, false, false, false, false, false, false, false]
+                likes: [false, false, false, false, false, false, false, false, false, false],
+                loginUser: this.$store.state.loginUser.name ? this.$store.state.loginUser.name : '',
+                score: 0,
+                textarea: ''
             }
         },
         mounted() {
             this.changeData();
         },
+        computed: {
+            userLogin() {
+                return this.$store.state.loginUser;
+            }
+        },
         methods: {
+            publishComment() {
+                if (this.textarea.length == 0 || this.score == 0) {
+                    this.warning();
+                    return;
+                }
+                const nowDate = new Date();
+                this.$api.addComment({
+                    UserId: this.$store.state.loginUser.id,
+                    MovieId: this.movieId,
+                    content: this.textarea,
+                    score: this.score * 2,
+                    likes: 0,
+                    publishDate: `${nowDate.getFullYear() }-${nowDate.getMonth()+1 }-${nowDate.getDate()+1 }`
+                }).then(res => {
+                    if(res){
+                        this.changeData();
+                        this.success();
+                        // this.$api.getCommentFindById(res.id).then(res=>{
+                        //     this.commentsData.unshift(res);
+                        //     this.success();
+                        // })
+                    }
+                })
+            },
+            success() {
+                this.$notify({
+                    title: '发布成功',
+                    message: `评论发布成功！`,
+                    type: 'success'
+                });
+            },
             changLikes(index, item) {
                 this.likes.splice(index, 1, !this.likes[index])
                 if (this.likes[index] === true) {
@@ -68,12 +125,22 @@
                 }).then(res => {
                     this.commentsData = res.data;
                 })
-            }
+            },
+            warning() {
+                this.$notify({
+                    title: '警告',
+                    message: '信息填写不完整！',
+                    type: 'warning'
+                });
+            },
         },
         watch: {
             $route() {
                 this.changeData();
                 this.likes.splice(0, 10, false, false, false, false, false, false, false, false, false, false);
+            },
+            userLogin() {
+                this.loginUser = this.$store.state.loginUser.name;
             }
         },
     }

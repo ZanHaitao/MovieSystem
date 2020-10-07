@@ -19,6 +19,9 @@ export default new Vuex.Store({
     actions: {
         changeCity({ commit }, { CityId }) {
             commit('setCityId', CityId)
+        },
+        changeUser({ commit }, payload) {
+            commit('setLoginUser', payload);
         }
     },
     modules: {}

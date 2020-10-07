@@ -84,7 +84,7 @@ exports.getCinemaScreensFindAll = async function(page = 1, limit = 10, options =
     if ('CinemaId' in options && options.CinemaId) {
         where.CinemaId = options.CinemaId;
     }
-
+    console.log(options);
     const result = await CinemaScreens.findAndCountAll({
         where,
         offset: (page - 1) * limit,

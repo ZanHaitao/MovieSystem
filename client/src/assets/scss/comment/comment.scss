@@ -1,4 +1,6 @@
 .comment {
+    position: relative;
+
     .title {
         font-size: 18px;
         font-weight: bold;
@@ -9,9 +11,24 @@
         margin-bottom: 20px;
     }
 
+    .publish-comment {
+        position: absolute;
+        right: 50px;
+        top: -5px;
+
+
+
+        .el-button:focus,
+        .el-button:hover {
+            color: #fff;
+            border-color: #EF4238;
+            background-color: #ec564e;
+        }
+    }
+
     &>.content {
 
-        .error{
+        .error {
             padding-top: 40px;
             color: #666;
         }
@@ -47,7 +64,7 @@
                     align-items: center;
                     margin-bottom: 20px;
 
-                    .publish{
+                    .publish {
                         color: #999;
                     }
 
@@ -60,9 +77,11 @@
                         position: absolute;
                         right: 10px;
                         color: #999;
-                        &.active{
+
+                        &.active {
                             color: #F7BA2A;
                         }
+
                         user-select: none;
                     }
                 }
@@ -74,5 +93,37 @@
                 }
             }
         }
+    }
+}
+
+.el-popover.el-popper {
+    padding: 40px 30px 30px;
+
+    .score {
+        display: flex;
+        justify-content: start;
+    }
+
+    .content {
+        margin-top: 20px;
+        display: flex;
+        justify-content: start;
+
+        p {
+            width: 50px;
+        }
+    }
+
+    .el-button.el-button--default {
+        float: right;
+        margin-top: 30px;
+        padding: 7px 30px;
+    }
+
+    .el-button:focus,
+    .el-button:hover {
+        color: #fff;
+        border-color: #EF4238;
+        background-color: #ec564e;
     }
 }

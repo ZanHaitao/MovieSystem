@@ -1,6 +1,7 @@
 const express = require('express');
 const AdminService = require('../../service/AdminService');
 const { asyncHandler, sendMsg } = require('../util/util');
+const jwt = require('../util/jwt')
 
 const router = express.Router();
 
@@ -9,6 +10,11 @@ const router = express.Router();
  */
 router.post('/login', asyncHandler(async (req, res) => {
     const result = await AdminService.loginAdmin(req.body.loginId, req.body.loginPwd);
+    if (result) {
+        jwt.publish(res, undefined, {
+            AdminId: result.id.toString()
+        })
+    }
     return result;
 }));
 

@@ -9,7 +9,7 @@ const { Op } = require("sequelize");
  * @param {*} sessionObj 
  */
 exports.addSession = async function(sessionObj) {
-    sessionObj = pick(sessionObj, 'showDate', 'showTime', 'language', 'price', 'CinemaId', 'MovieId', 'ScreenId')
+    sessionObj = pick(sessionObj, 'showDate', 'showTime', 'language', 'price', 'CinemaId', 'MovieId', 'ScreenId','seat')
     const result = await Session.create(sessionObj);
     return result.toJSON();
 }
@@ -20,7 +20,7 @@ exports.addSession = async function(sessionObj) {
  * @param {*} sessionObj 
  */
 exports.updateSession = async function(id, sessionObj) {
-    sessionObj = pick(sessionObj, 'showDate', 'showTime', 'language', 'price', 'CinemaId', 'MovieId', 'ScreenId')
+    sessionObj = pick(sessionObj, 'showDate', 'showTime', 'language', 'price', 'CinemaId', 'MovieId', 'ScreenId','seat')
     return await Session.update(sessionObj, {
         where: {
             id
@@ -47,7 +47,7 @@ exports.deleteSession = async function(id) {
  */
 exports.getSessionFindById = async function(id) {
     const result = await Session.findByPk(id,{
-        attributes: ['id', 'showDate', 'showTime', 'language', 'price', 'CinemaId', 'MovieId', 'ScreenId'],
+        attributes: ['id', 'showDate', 'showTime', 'language', 'price', 'CinemaId', 'MovieId', 'ScreenId','seat'],
         include:[
             {
                 model:Movie,
@@ -117,7 +117,7 @@ exports.getSessionFindAll = async function(page = 1, limit = 10, options = {}) {
         where,
         offset: (page - 1) * limit,
         limit: +limit,
-        attributes: ['id', 'showDate', 'showTime', 'language', 'price', 'CinemaId', 'MovieId', 'ScreenId'],
+        attributes: ['id', 'showDate', 'showTime', 'language', 'price', 'CinemaId', 'MovieId', 'ScreenId','seat'],
         include:[
             {
                 model:Movie,

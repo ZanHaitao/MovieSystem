@@ -37,7 +37,11 @@ router.get('/:id', asyncHandler(async (req, res) => {
  * 添加评论
  */
 router.post('/', asyncHandler(async (req, res) => {
-    return await CommentService.addComment(req.body);
+    if (req.token.UserId || req.token.Admin) {
+        return await CommentService.addComment(req.body);
+    } else {
+        res.status(403).send(sendMsg(403, "没有权限访问该接口！"));
+    }
 }));
 
 /**
