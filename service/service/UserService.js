@@ -8,7 +8,7 @@ const { Op } = require("sequelize");
  * @param {*} logindId 
  * @param {*} loginPwd 
  */
-exports.loginUser = async function(loginId,loginPwd){
+exports.loginUser = async function(loginId, loginPwd) {
     loginPwd = md5(loginPwd);
     const result = await User.findOne({
         where: {
@@ -65,7 +65,7 @@ exports.deleteUser = async function(id) {
  * @param {*} id 
  */
 exports.getUserFindById = async function(id) {
-    const result = await User.findByPk(id,{
+    const result = await User.findByPk(id, {
         attributes: ['id', 'name', 'loginId', 'sex', 'birthday', 'mobile']
     })
     if (result) {
@@ -111,7 +111,10 @@ exports.getUserFindAll = async function(page = 1, limit = 10, options = {}) {
         where,
         offset: (page - 1) * limit,
         limit: +limit,
-        attributes: ['id', 'name', 'loginId', 'sex', 'birthday', 'mobile']
+        attributes: ['id', 'name', 'loginId', 'sex', 'birthday', 'mobile', 'createdAt'],
+        order:[
+            ['id','DESC']
+        ]
     });
 
     return {

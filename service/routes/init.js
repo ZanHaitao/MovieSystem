@@ -37,7 +37,7 @@ app.use(express.json());
 
 // api处理
 app.use('/api/admin',require('./api/AdminRouter'));
-app.use('/api/banner',require('./api/Banner'));
+app.use('/api/banner',require('./api/BannerRouter'));
 app.use('/api/cinema',require('./api/CinemaRouter'));
 app.use('/api/cinemascreens',require('./api/CinemaScreensRouter'));
 app.use('/api/city',require('./api/CityRouter'));

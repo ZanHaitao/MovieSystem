@@ -1,0 +1,71 @@
+.admin-page-login {
+    position: fixed;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    // z-index: 9999;
+    background-color: #304156;
+
+    & > .login-content {
+        width: 600px;
+        height: 450px;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        border: 1px solid rgba($color: #000000, $alpha: .1);
+        background-color: #fff;
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba($color: #fff, $alpha: 1.0);
+
+        .logo {
+            margin: 40px auto 40px;
+            width: 195px;
+            height: 100px;
+            background: url(https://s1.ax1x.com/2020/10/07/0aTsmR.png) no-repeat 0;
+            background-position: center;
+            background-size: 195px 65px;
+        }
+
+        .el-form.demo-ruleForm {
+            height: 260px;
+            padding-right: 100px;
+            padding-left: 40px;
+
+            .el-form-item.el-form-item--feedback.is-error {
+                margin: 40px 0;
+            }
+
+            .el-form-item.el-form-item--feedback {
+                margin-bottom: 30px;
+            }
+
+            .el-form-item.el-form-item--feedback.is-error {
+                margin-top: 0;
+                margin-bottom: 30px;
+            }
+
+            .el-form-item.el-form-item--feedback.first {
+                margin-bottom: 30px;
+            }
+
+            .el-form-item.el-form-item--feedback.btn {
+                margin-bottom: 20px;
+            }
+
+            .el-button.el-button--primary {
+                background: #EF4238;
+                border-color: #EF4238;
+                padding: 10px 162px;
+            }
+
+            .el-button.el-button--default {
+                background: #EF4238;
+                border-color: #EF4238;
+                color: #fff;
+                padding: 10px 162px;
+            }
+        }
+    }
+}

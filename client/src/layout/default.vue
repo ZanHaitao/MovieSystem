@@ -15,8 +15,8 @@
 </template>
 
 <script>
-    import MyHeader from '../components/header/header'
-    import MyFooter from '../components/footer/footer'
+    import MyHeader from '../components/client/header/header'
+    import MyFooter from '../components/client/footer/footer'
     export default {
         components: {
             MyHeader,

@@ -1,0 +1,27 @@
+.admin-header {
+
+
+    &>.logo {
+        position: absolute;
+        width: 170px;
+        height: 70px;
+        background: url(https://s1.ax1x.com/2020/10/07/0aTsmR.png) no-repeat 0;
+        background-size: 135px 45px;
+    }
+
+    &>.login {
+        float: right;
+        margin-top: 13px;
+
+        .portrait {
+            display: inline-block;
+            vertical-align: middle;
+            margin-right: 10px;
+            background: url(https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif?imageView2/1/w/80/h/80) no-repeat;
+            background-size: cover;
+            border-radius: 6px;
+            width: 40px;
+            height: 40px;
+        }
+    }
+}

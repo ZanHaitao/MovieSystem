@@ -10,7 +10,7 @@ const { Op } = require("sequelize");
  * @param {*} orderObj 
  */
 exports.addOrder = async function(orderObj) {
-    orderObj = pick(orderObj, 'number', 'UserId', 'CinemaId', 'SesssionId', 'MovieId');
+    orderObj = pick(orderObj, 'number', 'UserId', 'CinemaId', 'SessionId', 'MovieId');
     const result = await Order.create(orderObj);
     return result.toJSON();
 }
@@ -48,23 +48,22 @@ exports.deleteOrder = async function(id) {
  */
 exports.getOrderFindById = async function(id) {
     const result = await Order.findByPk(id, {
-        attributes: ['id', 'number', 'UserId', 'CinemaId', 'SessionId', 'MovieId'],
-        include: [
-            {
-                model:Movie,
-                attributes:['id', 'name', 'region', 'type', 'duration', 'publishDate', 'score', 'income', 'introduce', 'imgUrl']
+        attributes: ['id', 'number', 'UserId', 'CinemaId', 'SessionId', 'MovieId','createdAt'],
+        include: [{
+                model: Movie,
+                attributes: ['id', 'name', 'region', 'type', 'duration', 'publishDate', 'score', 'income', 'introduce', 'imgUrl']
             },
             {
-                model:Session,
-                attributes:['id', 'showDate', 'showTime', 'language', 'price', 'CinemaId', 'MovieId', 'ScreenId']
+                model: Session,
+                attributes: ['id', 'showDate', 'showTime', 'language', 'price', 'CinemaId', 'MovieId', 'ScreenId','seat']
             },
             {
-                model:User,
-                attributes:['id', 'name', 'loginId', 'sex', 'birthday', 'mobile']
+                model: User,
+                attributes: ['id', 'name', 'loginId', 'sex', 'birthday', 'mobile']
             },
             {
-                model:Cinema,
-                attributes:['id', 'name', 'address', 'mobile', 'imgUrl', 'CityId']
+                model: Cinema,
+                attributes: ['id', 'name', 'address', 'mobile', 'imgUrl', 'CityId']
             }
         ]
     })
@@ -86,7 +85,6 @@ exports.getOrderFindAll = async function(page = 1, limit = 10, options = {}) {
     }
 
     options = pick(options, 'number', 'UserId', 'CinemaId', 'SessionId', 'MovieId');
-
     const where = {};
     if ('number' in options && options.number) {
         where.number = options.number
@@ -103,30 +101,32 @@ exports.getOrderFindAll = async function(page = 1, limit = 10, options = {}) {
     if ('MovieId' in options && options.MovieId) {
         where.MovieId = options.MovieId
     }
-
+    
 
     const result = await Order.findAndCountAll({
         where,
         offset: (page - 1) * limit,
         limit: +limit,
-        attributes: ['id', 'number', 'UserId', 'CinemaId', 'SessionId', 'MovieId'],
-        include: [
-            {
-                model:Movie,
-                attributes:['id', 'name', 'region', 'type', 'duration', 'publishDate', 'score', 'income', 'introduce', 'imgUrl']
+        attributes: ['id', 'number', 'UserId', 'CinemaId', 'SessionId', 'MovieId','createdAt'],
+        include: [{
+                model: Movie,
+                attributes: ['id', 'name', 'region', 'type', 'duration', 'publishDate', 'score', 'income', 'introduce', 'imgUrl']
             },
             {
-                model:Session,
-                attributes:['id', 'showDate', 'showTime', 'language', 'price', 'CinemaId', 'MovieId', 'ScreenId']
+                model: Session,
+                attributes: ['id', 'showDate', 'showTime', 'language', 'price', 'CinemaId', 'MovieId', 'ScreenId', 'seat']
             },
             {
-                model:User,
-                attributes:['id', 'name', 'loginId', 'sex', 'birthday', 'mobile']
+                model: User,
+                attributes: ['id', 'name', 'loginId', 'sex', 'birthday', 'mobile']
             },
             {
-                model:Cinema,
-                attributes:['id', 'name', 'address', 'mobile', 'imgUrl', 'CityId']
+                model: Cinema,
+                attributes: ['id', 'name', 'address', 'mobile', 'imgUrl', 'CityId']
             }
+        ],
+        order:[
+            ['id','DESC']
         ]
     });
 

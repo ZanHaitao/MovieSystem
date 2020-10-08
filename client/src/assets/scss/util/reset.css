@@ -141,3 +141,6 @@ body::-webkit-scrollbar-thumb{  /*滑块的样式*/
     border-radius: 5px;
     background: #d1d4db;
 }
+body .el-menu-item-group__title{
+    padding: 0;
+}

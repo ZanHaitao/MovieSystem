@@ -2,11 +2,11 @@ const Order = require('../models/Table/Order');
 
 async function setData(){
     const data = [];
-    for (let i = 0; i < 1000; i++) {
+    for (let i = 0; i < 10000; i++) {
         data.push({
-            UserId:getRandom(1, 1958),
+            UserId:getRandom(1, 1963),
             MovieId:getRandom(1, 180),
-            SessionId:getRandom(15000, 30000),
+            SessionId:getRandom(346895, 482339),
             CinemaId:getRandom(1863, 2994),
             number:getRandom(1, 5),
         })

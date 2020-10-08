@@ -13,9 +13,21 @@ router.post('/login', asyncHandler(async (req, res) => {
     if (result) {
         jwt.publish(res, undefined, {
             AdminId: result.id.toString()
-        })
+        },'admin')
     }
     return result;
+}));
+
+/**
+ * 获取管理员身份
+ */
+router.post('/whoami', asyncHandler(async (req, res) => {
+    if (req.token.AdminId) {
+        const result = await AdminService.getAdminFindById(req.token.AdminId);
+        return result;
+    } else {
+        res.send(null);
+    }
 }));
 
 /**

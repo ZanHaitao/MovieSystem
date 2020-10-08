@@ -92,11 +92,14 @@ exports.getCinemaFindAll = async function(page = 1, limit = 10, options = {}) {
         where,
         offset: (page - 1) * limit,
         limit: +limit,
-        attributes: ['id', 'name', 'address', 'mobile', 'imgUrl', 'CityId'],
+        attributes: ['id', 'name', 'address', 'mobile', 'imgUrl', 'CityId', 'createdAt'],
         include:{
             model:City,
             attributes:['id','province','city']
-        }
+        },
+        order:[
+            ['id','DESC']
+        ]
     });
 
     return {

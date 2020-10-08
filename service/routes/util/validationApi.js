@@ -1,7 +1,8 @@
-module.exports = [{
-        method: 'POST',
-        path: '/api/admin'
-    },
+module.exports = [
+    // {
+    //     method: 'POST',
+    //     path: '/api/admin'
+    // },
     {
         method: 'PUT',
         path: '/api/admin/:id'

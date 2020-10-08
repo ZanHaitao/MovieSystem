@@ -37,6 +37,24 @@ export default {
         })
     },
     /**
+     * 查询用户列表
+     * @param {*} options 
+     */
+    async getUserList(options){
+        return await axios().get('/api/user', {
+            params: {
+                ...options
+            }
+        });
+    },
+    /**
+     * 通过id查找用户
+     * @param {*} options 
+     */
+    async getUserFindById(id){
+        return await axios().get(`/api/user${id}`);
+    },
+    /**
      * 获取banner广告
      */
     async getBanner() {
@@ -193,5 +211,22 @@ export default {
                 ...options
             }
         })
-    }
+    },
+    /**
+     * 管理员登录
+     * @param {*} loginId 
+     * @param {*} loginPwd 
+     */
+    async adminLogin(loginId, loginPwd){
+        return await axios().post('/api/admin/login', {
+            loginId,
+            loginPwd
+        })
+    },
+    /**
+     * 管理员身份获取
+     */
+    async adminWhoAmI() {
+        return await axios().post('/api/admin/whoami');
+    },
 }

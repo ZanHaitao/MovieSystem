@@ -7,29 +7,32 @@ const validationApi = require('../util/validationApi')
 
 module.exports = (req, res, next) => {
     // 验证接口权限
-    const validation = validationApi.filter(api=>{
+    const validation = validationApi.filter(api => {
         const reg = pathToRegexp(api.path);
         return api.method == req.method && reg.test(req.path);
     });
-    if(validation.length == 0){
+    if (validation.length == 0) {
         next();
         return;
     }
+    let result;
+    if (req.path.indexOf('user') != -1) {
+        result = jwt.verify(req, 'user');
+    } else if (req.path.indexOf('admin') != -1) {
+        result = jwt.verify(req, 'admin');
+    } else {
+        result = jwt.verify(req, 'cinema');
+    }
 
-    const result = jwt.verify(req);
-    if(result){
+    if (result) {
         req.token = {};
-        if(result.UserId){
+        if (result.UserId) {
             req.token.UserId = result.UserId;
-        }else if(result.AdminId){
+        } else if (result.AdminId) {
             req.token.AdminId = result.AdminId;
         }
         next();
-    }else{
-        res.status(403).send(util.sendMsg(403,"请登录后访问！"));
+    } else {
+        res.status(403).send(util.sendMsg(403, "请登录后访问！"));
     }
-}
-
-function handleAuthorization(req) {
-    return req.headers['Authorization'];
 }
