@@ -42,6 +42,7 @@ router.post('/', asyncHandler(async (req, res) => {
  * 修改订单信息
  */
 router.put('/:id', asyncHandler(async (req, res) => {
+    console.log(111);
     return await OrderService.updateOrder(req.params.id, req.body);
 }));
 

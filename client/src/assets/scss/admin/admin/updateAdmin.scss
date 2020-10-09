@@ -1,0 +1,12 @@
+.update-admin{
+    height: 810px;
+
+    & .update-admin-content{
+        margin-top: 20px;
+        width: 700px;
+
+        .el-button{
+            width: 500px;
+        }
+    }
+}

@@ -80,6 +80,7 @@
         },
         methods: {
             publishComment() {
+                console.log(this.$store.state.loginUser.id)
                 if (this.textarea.length == 0 || this.score == 0) {
                     this.warning();
                     return;

@@ -52,9 +52,12 @@
             }
         },
         created() {
-            if (this.$store.state.loginUser.name == undefined) {
-                this.$router.push({ name: 'login' })
-            }
+            setTimeout(() => {
+                if (this.$store.state.loginUser.name == undefined) {
+                    this.$router.push({ name: 'login' })
+                }
+            }, 1000)
+
             this.getData();
         },
         methods: {

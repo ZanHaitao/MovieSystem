@@ -7,8 +7,23 @@
 
         <dir class="order-content">
             <el-card shadow="hover" :class="'data-item'">
+                <div class="search">
+                    <el-input @change="handleChange" placeholder="请输入订单ID" v-model="searchOrderId">
+                        <el-button @click="handleSearchOrderId" slot="append" icon="el-icon-search"></el-button>
+                    </el-input>
+                    <el-input @change="handleChange" placeholder="请输入用户ID" v-model="searchUserId">
+                        <el-button @click="handleSearchUserId" slot="append" icon="el-icon-search"></el-button>
+                    </el-input>
+                    <el-input @change="handleChange" placeholder="请输入影院ID" v-model="searchCinemaId">
+                        <el-button @click="handleSearchCinemaId" slot="append" icon="el-icon-search"></el-button>
+                    </el-input>
+                    <el-input @change="handleChange" placeholder="请输入电影ID" v-model="searchMovieId">
+                        <el-button @click="handleSearchMovieId" slot="append" icon="el-icon-search"></el-button>
+                    </el-input>
+                </div>
+
                 <el-table v-loading="loading" :data="orderDataList" stripe style="width: 100%">
-                    <el-table-column type="index">
+                    <el-table-column type="index" label="索引">
                     </el-table-column>
                     <el-table-column prop="createdAt" label="创建时间">
                     </el-table-column>
@@ -45,7 +60,11 @@
                 limit: 15,
                 total: 0,
                 orderData: [],
-                loading: true
+                loading: true,
+                searchOrderId: '',
+                searchUserId: '',
+                searchCinemaId: '',
+                searchMovieId: ''
             }
         },
         computed: {
@@ -66,16 +85,23 @@
             this.getData();
         },
         methods: {
-            getData() {
+            getData(options = {}) {
                 this.loading = true;
                 this.$api.getOrderList({
                     limit: this.limit,
-                    page: this.nowPage
+                    page: this.nowPage,
+                    ...options
                 }).then(res => {
                     this.total = res.count;
                     this.orderData = res.data;
                     this.loading = false;
                 })
+            },
+            handleChange(){
+                if(this.searchOrderId === '' && this.searchUserId === '' && this.searchCinemaId === '' && this.searchMovieId === ''){
+                    this.getData();
+                    return;
+                }
             },
             handleSizeChange(page) {
                 this.nowPage = page;
@@ -83,6 +109,47 @@
             handleCurrentChange(page) {
                 this.nowPage = page;
             },
+            handleSearchOrderId() {
+                if(this.searchOrderId === ''){
+                    this.getData();
+                    return;
+                }
+                this.loading = true;
+                this.$api.getOrderFindById(this.searchOrderId).then(res => {
+                    if (res) {
+                        this.total = 1;
+                        this.orderData = [res];
+                        this.loading = false;
+                    }
+                })
+            },
+            handleSearchUserId() {
+                if(this.searchUserId === ''){
+                    this.getData();
+                    return;
+                }
+                this.getData({
+                    userid: this.searchUserId
+                })
+            },
+            handleSearchCinemaId() {
+                if(this.searchCinemaId === ''){
+                    this.getData();
+                    return;
+                }
+                this.getData({
+                    cinemaid: this.searchCinemaId
+                })
+            },
+            handleSearchMovieId() {
+                if(this.searchMovieId === ''){
+                    this.getData();
+                    return;
+                }
+                this.getData({
+                    movieid: this.searchMovieId
+                })
+            }
         },
         watch: {
             nowPage() {

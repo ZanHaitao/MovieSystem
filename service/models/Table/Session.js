@@ -23,7 +23,7 @@ module.exports = sequelize.define('Session', {
     },
     seat: {
         type: DataTypes.STRING(2000),
-        allowNull: true
+        allowNull: false
     }
 }, {
     createdAt: true,

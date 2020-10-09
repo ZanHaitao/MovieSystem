@@ -14,11 +14,13 @@ router.get('/', asyncHandler(async (req, res) => {
     const address = req.query.address || "";
     const mobile = req.query.mobile || "";
     const CityId = req.query.cityid || "";
+    const loginId = req.query.loginid || "";
     return await CinemaService.getCinemaFindAll(page, limit, {
         name,
         address,
         mobile,
-        CityId
+        CityId,
+        loginId
     });
 }));
 

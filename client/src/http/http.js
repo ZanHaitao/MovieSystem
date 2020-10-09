@@ -7,13 +7,33 @@ export default function() {
     const adminToken = localStorage.getItem('adminToken');
     const cinemaToken = localStorage.getItem('cinemaToken');
 
+    const validataUser = [
+        '/api/user/whoami',
+    ]
+
+    const validataAdmin = [
+        '/api/admin/whoami',
+        '/api/admin',
+        '/api/user',
+        '/api/banner',
+        '/api/cinema',
+        '/api/cinemaserve',
+        '/api/movie',
+        '/api/movuetype',
+    ]
+
     instance.interceptors.request.use((request) => {
-        if (request.url.indexOf('user') != -1 && userToken) {
+        const url = request.url;
+        if (validataUser.indexOf(url) != -1 && userToken) {
             request.headers.post.authorization = "bearer " + userToken;
-        } else if (request.url.indexOf('admin') != -1 && adminToken) {
+        } else if ((validataAdmin.indexOf(url.slice(0, url.lastIndexOf('/'))) != -1 || validataAdmin.indexOf(url)) != -1 && adminToken) {
             request.headers.post.authorization = "bearer " + adminToken;
-        } else if (request.url.indexOf('cinema') != -1 && cinemaToken) {
+            request.headers.put.authorization = "bearer " + adminToken;
+            request.headers.delete.authorization = "bearer " + adminToken;
+        } else if (url.indexOf('cinema') != -1 && cinemaToken) {
             request.headers.post.authorization = "bearer " + cinemaToken;
+            request.headers.put.authorization = "bearer " + cinemaToken;
+            request.headers.delete.authorization = "bearer " + cinemaToken;
         }
         return request
     })
@@ -21,7 +41,6 @@ export default function() {
     instance.interceptors.response.use((response) => {
         if (response.headers.authorization) {
             if (response.config.url.indexOf('user') != -1) {
-                console.log(123);
                 localStorage.setItem('userToken', response.headers.authorization);
             } else if (response.config.url.indexOf('admin') != -1) {
                 localStorage.setItem('adminToken', response.headers.authorization);
@@ -37,9 +56,9 @@ export default function() {
         }
     }, (err) => {
         if (err.response.status === 403) {
-            if (err.response.config.url.indexOf('user') != -1) {
+            if (err.response.config.url === '/api/user/whoami') {
                 localStorage.removeItem('userToken');
-            } else if (err.response.config.url.indexOf('admin') != -1) {
+            } else if (err.response.config.url === '/api/admin/whoami') {
                 localStorage.removeItem('adminToken');
             } else {
                 localStorage.removeItem('cinemaToken');

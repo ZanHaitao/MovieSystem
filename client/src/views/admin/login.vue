@@ -59,15 +59,12 @@
             }
         },
         created() {
-            this.$api.adminWhoAmI().then(res => {
-                if (res) {
-                    this.$store.dispatch('changeAdmin', res);
-                    this.$router.push({ name: 'adminIndex' });
-                    this.success(res.name);
-                }
-            }).catch(err=>{
-                console.log("未获取到用户")
-            });
+            console.log(this.$store.state.loginAdmin.name !== undefined)
+            if (this.$store.state.loginAdmin.name !== undefined) {
+                this.$router.push({ name: 'adminIndex' });
+                this.success(res.name, res.type);
+            }
+
         },
         methods: {
             submitForm(formName) {
@@ -77,7 +74,7 @@
                             if (!res) {
                                 this.error();
                             } else {
-                                this.success(res.name);
+                                this.success(res.name, res.type);
                                 this.$store.dispatch('changeAdmin', res);
                                 this.$router.push({ name: 'adminIndex' });
                             }
@@ -90,10 +87,10 @@
 
                 });
             },
-            success(userName) {
+            success(userName, type) {
                 this.$notify({
                     title: '登录成功',
-                    message: `登录成功，欢迎 "${userName}" 管理员！`,
+                    message: `登录成功，欢迎 "${userName}" ${type}！`,
                     type: 'success'
                 });
             },
@@ -115,5 +112,5 @@
 </script>
 
 <style lang="scss">
-@import '@/assets/scss/admin/login/login.scss';
+    @import '@/assets/scss/admin/login/login.scss';
 </style>

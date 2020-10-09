@@ -1,0 +1,19 @@
+.user-list {
+
+    &>.user-content {
+        padding: 0;
+        height: 1100px;
+
+        
+        .search{
+            display: flex;
+            justify-content: space-around;
+            padding: 20px 0;
+            border-bottom: 1px dashed rgba($color: #000000, $alpha: 0.1);
+
+            .el-input-group{
+                width: 20%;
+            }
+        }
+    }
+}

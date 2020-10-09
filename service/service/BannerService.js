@@ -1,4 +1,3 @@
-const { async } = require('validate.js');
 const Banner = require('../models/Table/Banner');
 const { pick } = require('../util/propertayHelper');
 const { Op } = require("sequelize");

@@ -30,17 +30,13 @@ export default {
      * @param {*} options
      */
     async updateUser(id, options) {
-        return await axios().put(`/api/user/${id}`, {
-            data: {
-                ...options
-            }
-        })
+        return await axios().put(`/api/user/${id}`, options);
     },
     /**
      * 查询用户列表
      * @param {*} options 
      */
-    async getUserList(options){
+    async getUserList(options) {
         return await axios().get('/api/user', {
             params: {
                 ...options
@@ -51,8 +47,15 @@ export default {
      * 通过id查找用户
      * @param {*} options 
      */
-    async getUserFindById(id){
-        return await axios().get(`/api/user${id}`);
+    async getUserFindById(id) {
+        return await axios().get(`/api/user/${id}`);
+    },
+    /**
+     * 删除用户
+     * @param {*} id 
+     */
+    async deleteUser(id) {
+        return await axios().delete('/api/user/' + id);
     },
     /**
      * 获取banner广告
@@ -81,6 +84,28 @@ export default {
      */
     async getCinemaFindById(id) {
         return await axios().get(`/api/cinema/${id}`)
+    },
+    /**
+     * 修改影院
+     * @param {*} id 
+     * @param {*} options 
+     */
+    async updateCinema(id, options) {
+        return await axios().put('/api/cinema/' + id, options)
+    },
+    /**
+     * 删除影院
+     * @param {*} id 
+     */
+    async deleteCinema(id) {
+        return await axios().delete('/api/cinema/' + id)
+    },
+    /**
+     * 添加影院
+     * @param {*} options 
+     */
+    async addCinema(options) {
+        return await axios().post('/api/cinema', options)
     },
     /**
      * 获取城市列表
@@ -166,6 +191,13 @@ export default {
         })
     },
     /**
+     * 通过id获取订单
+     * @param {*} id
+     */
+    async getOrderFindById(id) {
+        return await axios().get('/api/order/' + id)
+    },
+    /**
      * 添加订单
      * @param {*} options
      */
@@ -217,7 +249,7 @@ export default {
      * @param {*} loginId 
      * @param {*} loginPwd 
      */
-    async adminLogin(loginId, loginPwd){
+    async adminLogin(loginId, loginPwd) {
         return await axios().post('/api/admin/login', {
             loginId,
             loginPwd
@@ -228,5 +260,45 @@ export default {
      */
     async adminWhoAmI() {
         return await axios().post('/api/admin/whoami');
+    },
+    /**
+     * 获取管理员列表
+     * @param {*} options 
+     */
+    async getAdminList(options) {
+        return await axios().get('/api/admin', {
+            params: {
+                ...options
+            }
+        })
+    },
+    /**
+     * 通过id获取管理员
+     * @param {*} id 
+     */
+    async getAdminFindById(id) {
+        return await axios().get('/api/admin/' + id);
+    },
+    /**
+     * 修改管理员信息
+     * @param {*} id 
+     * @param {*} options 
+     */
+    async updateAdmin(id, options) {
+        return await axios().put('/api/admin/' + id, options);
+    },
+    /**
+     * 删除管理员
+     * @param {*} id 
+     */
+    async deleteAdmin(id) {
+        return await axios().delete('/api/admin/' + id);
+    },
+    /**
+     * 添加管理员
+     * @param {*} id 
+     */
+    async addAdmin(options) {
+        return await axios().post('/api/admin', options);
     },
 }

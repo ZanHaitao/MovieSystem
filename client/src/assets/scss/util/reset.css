@@ -129,10 +129,6 @@ table {
     border-spacing: 0;
 }
 
-body .el-select-dropdown.el-popper {
-    top: 55px !important;
-}
-
 body::-webkit-scrollbar{/*滚动条样式*/
     width: 10px;
     height: 0px;

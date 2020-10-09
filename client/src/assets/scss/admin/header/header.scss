@@ -9,6 +9,33 @@
         background-size: 135px 45px;
     }
 
+    &>.tip {
+        position: absolute;
+        right: 120px;
+        height: 70px;
+        font-size: 14px;
+        padding-top: 5px;
+        box-sizing: border-box;
+
+        p {
+            margin: 10px 0;
+            color: #999;
+            display: flex;
+            align-items: center;
+            span{
+                display: inline-block;
+                width: 100px;
+                text-align: right;
+            }
+
+            span.data {
+                color: #304156;
+                font-weight: bold;
+                text-align: left;
+            }
+        }
+    }
+
     &>.login {
         float: right;
         margin-top: 13px;

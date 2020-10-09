@@ -41,6 +41,7 @@ exports.addUser = async function(userObj) {
  */
 exports.updateUser = async function(id, userObj) {
     userObj = pick(userObj, 'name', 'loginId', 'loginPwd', 'sex', 'birthday', 'mobile')
+
     return await User.update(userObj, {
         where: {
             id,
@@ -91,7 +92,7 @@ exports.getUserFindAll = async function(page = 1, limit = 10, options = {}) {
             [Op.like]: `%${options.name}%`
         }
     }
-    if ('loginId' in options && options.name) {
+    if ('loginId' in options && options.loginId) {
         where.loginId = options.loginId
     }
     if ('sex' in options) {
@@ -107,6 +108,7 @@ exports.getUserFindAll = async function(page = 1, limit = 10, options = {}) {
     if ('mobile' in options && options.mobile) {
         where.mobile = options.mobile
     }
+
     const result = await User.findAndCountAll({
         where,
         offset: (page - 1) * limit,

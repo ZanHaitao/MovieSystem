@@ -86,6 +86,10 @@
         width: 300px;
         background-color: #fff;
 
+        .el-select,.el-input {
+            height: 55px;
+        }
+
         .el-select .el-input.is-focus .el-input__inner {
             border-color: #C0C4CC;
         }

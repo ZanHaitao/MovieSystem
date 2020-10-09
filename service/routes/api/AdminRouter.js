@@ -1,7 +1,8 @@
 const express = require('express');
 const AdminService = require('../../service/AdminService');
 const { asyncHandler, sendMsg } = require('../util/util');
-const jwt = require('../util/jwt')
+const jwt = require('../util/jwt');
+const { result } = require('validate.js');
 
 const router = express.Router();
 
@@ -13,7 +14,7 @@ router.post('/login', asyncHandler(async (req, res) => {
     if (result) {
         jwt.publish(res, undefined, {
             AdminId: result.id.toString()
-        },'admin')
+        }, 'admin')
     }
     return result;
 }));
@@ -38,7 +39,12 @@ router.get('/', asyncHandler(async (req, res) => {
     const limit = req.query.limit || 10;
     const name = req.query.name || "";
     const loginId = req.query.loginid || "";
-    return await AdminService.getAdminFindAll(page, limit, name, loginId);
+    const type = req.query.type || "";
+    return await AdminService.getAdminList(page, limit, {
+        name,
+        loginId,
+        type
+    });
 }));
 
 /**

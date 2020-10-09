@@ -22,6 +22,7 @@
 </template>
 
 <script>
+import loginVue from '../admin/login.vue';
     export default {
         data() {
             const validateLoginId = (rule, value, callback) => {
@@ -59,6 +60,11 @@
                 }
             }
         },
+        created() {
+            if(this.$store.state.loginUser.name !== undefined){
+                this.$router.push({name:'index'})
+            }
+        },
         methods: {
             submitForm(formName) {
                 this.$refs[formName].validate((valid) => {
@@ -66,10 +72,10 @@
                         this.$api.userLogin(this.ruleForm.LoginId, this.ruleForm.LoginPwd).then(res => {
                             if (!res) {
                                 this.error();
-                            }else{
+                            } else {
                                 this.success(res.name);
-                                this.$store.dispatch('changeUser',res);
-                                this.$router.push({name:'index'});
+                                this.$store.dispatch('changeUser', res);
+                                this.$router.push({ name: 'index' });
                             }
                         })
                         return true
@@ -80,8 +86,8 @@
 
                 });
             },
-            resetForm(){
-                this.$router.push({name:'register'});
+            resetForm() {
+                this.$router.push({ name: 'register' });
             },
             success(userName) {
                 this.$notify({

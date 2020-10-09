@@ -7,7 +7,7 @@
                     <i class="el-icon-s-unfold" v-else></i>
                 </div>
 
-                <el-menu background-color="#304156" router :default-active="$route.path" text-color="#fff" class="el-menu-vertical-demo" @open="handleOpen" @close="handleClose" :collapse="isCollapse">
+                <el-menu background-color="#304156" router :default-active="$route.path" text-color="#fff" class="el-menu-vertical-demo" :collapse="isCollapse">
                     <el-menu-item index="/admin/index" @click="goIndex">
                         <i class="el-icon-s-home"></i>
                         <span slot="title">首页</span>
@@ -18,8 +18,9 @@
                             <span slot="title">管理员管理</span>
                         </template>
                         <el-menu-item-group>
-                            <el-menu-item index="1-1">管理员列表</el-menu-item>
-                            <el-menu-item index="1-2">添加管理员</el-menu-item>
+                            <el-menu-item index="/admin/adminlist">管理员列表</el-menu-item>
+                            <el-menu-item index="/admin/addadmin"  v-if="$store.state.loginAdmin.type === '超级管理员'">添加管理员</el-menu-item>
+                            <el-menu-item index="/admin/updateadmin">修改信息</el-menu-item>
                         </el-menu-item-group>
                     </el-submenu>
                     <el-submenu index="2">
@@ -28,8 +29,8 @@
                             <span slot="title">用户管理</span>
                         </template>
                         <el-menu-item-group>
-                            <el-menu-item index="2-1">用户列表</el-menu-item>
-                            <el-menu-item index="2-2">添加用户</el-menu-item>
+                            <el-menu-item index="/admin/userlist">用户列表</el-menu-item>
+                            <el-menu-item index="/admin/adduser">添加用户</el-menu-item>
                         </el-menu-item-group>
                     </el-submenu>
                     <el-submenu index="3">
@@ -38,8 +39,8 @@
                             <span slot="title">影院管理</span>
                         </template>
                         <el-menu-item-group>
-                            <el-menu-item index="3-1">影院列表</el-menu-item>
-                            <el-menu-item index="3-2">添加影院</el-menu-item>
+                            <el-menu-item index="/admin/cinemalist">影院列表</el-menu-item>
+                            <el-menu-item index="/admin/addcinema">添加影院</el-menu-item>
                         </el-menu-item-group>
                     </el-submenu>
                     <el-submenu index="4">
@@ -48,8 +49,8 @@
                             <span slot="title">服务管理</span>
                         </template>
                         <el-menu-item-group>
-                            <el-menu-item index="4-1">服务列表</el-menu-item>
-                            <el-menu-item index="4-2">添加服务</el-menu-item>
+                            <el-menu-item index="/admin/cinemaservelist">服务列表</el-menu-item>
+                            <el-menu-item index="/admin/addcinemaserve">添加服务</el-menu-item>
                         </el-menu-item-group>
                     </el-submenu>
                     <el-submenu index="5">
@@ -58,8 +59,8 @@
                             <span slot="title">电影管理</span>
                         </template>
                         <el-menu-item-group>
-                            <el-menu-item index="5-1">电影列表</el-menu-item>
-                            <el-menu-item index="5-2">添加电影</el-menu-item>
+                            <el-menu-item index="/admin/movielist">电影列表</el-menu-item>
+                            <el-menu-item index="/admin/addmovie">添加电影</el-menu-item>
                         </el-menu-item-group>
                     </el-submenu>
                     <el-submenu index="6">
@@ -68,8 +69,8 @@
                             <span slot="title">类型管理</span>
                         </template>
                         <el-menu-item-group>
-                            <el-menu-item index="6-1">类型列表</el-menu-item>
-                            <el-menu-item index="6-2">添加类型</el-menu-item>
+                            <el-menu-item index="/admin/movietypelist">类型列表</el-menu-item>
+                            <el-menu-item index="/admin/addmovietype">添加类型</el-menu-item>
                         </el-menu-item-group>
                     </el-submenu>
                     <el-submenu index="7">
@@ -78,8 +79,8 @@
                             <span slot="title">评论管理</span>
                         </template>
                         <el-menu-item-group>
-                            <el-menu-item index="7-1">评论列表</el-menu-item>
-                            <el-menu-item index="7-2">添加评论</el-menu-item>
+                            <el-menu-item index="/admin/commentlist">评论列表</el-menu-item>
+                            <el-menu-item index="/admin/addcomment">添加评论</el-menu-item>
                         </el-menu-item-group>
                     </el-submenu>
                     <el-submenu index="8">
@@ -88,23 +89,23 @@
                             <span slot="title">影厅管理</span>
                         </template>
                         <el-menu-item-group>
-                            <el-menu-item index="8-1">影厅列表</el-menu-item>
-                            <el-menu-item index="8-2">添加影厅</el-menu-item>
+                            <el-menu-item index="/admin/screenlist">影厅列表</el-menu-item>
+                            <el-menu-item index="/admin/addscreen">添加影厅</el-menu-item>
                         </el-menu-item-group>
                     </el-submenu>
-                    
+
                     <el-submenu index="9">
                         <template slot="title">
                             <i class="el-icon-menu"></i>
                             <span slot="title">广告管理</span>
                         </template>
                         <el-menu-item-group>
-                            <el-menu-item index="9-1">广告列表</el-menu-item>
-                            <el-menu-item index="9 -2">添加广告</el-menu-item>
+                            <el-menu-item index="/admin/bannerlist">广告列表</el-menu-item>
+                            <el-menu-item index="/admin/addbanner">添加广告</el-menu-item>
                         </el-menu-item-group>
                     </el-submenu>
 
-                    <el-menu-item index="/admin/order" >
+                    <el-menu-item index="/admin/order">
                         <i class="el-icon-s-order"></i>
                         <span slot="title">订单查询</span>
                     </el-menu-item>
@@ -134,12 +135,6 @@
             };
         },
         methods: {
-            handleOpen(key, keyPath) {
-                console.log(key, keyPath);
-            },
-            handleClose(key, keyPath) {
-                console.log(key, keyPath);
-            },
             handleClick() {
                 this.isCollapse = !this.isCollapse;
             },
@@ -155,6 +150,45 @@
 
 <style lang="scss">
     .layout-admin {
+
+        .el-breadcrumb {
+            padding-bottom: 10px;
+            border-bottom: 1px dashed rgba($color: #000000, $alpha: 0.1);
+        }
+
+        .cell {
+            white-space: nowrap;
+        }
+
+        .el-dialog__body{
+            padding-right: 90px;
+        }
+
+        .el-form.demo-ruleForm{
+            padding:40px 60px 20px 0;
+        }
+
+        .el-breadcrumb__inner a:hover,
+        .el-breadcrumb__inner.is-link:hover {
+            color: #304156;
+        }
+
+        .el-pagination.is-background {
+            text-align: center;
+            margin: 50px 0 50px;
+
+            .el-pager li:not(.disabled).active {
+                background-color: #304156;
+            }
+
+            &.el-pager li:not(.disabled):hover {
+                color: #304156;
+            }
+
+            .el-pager li:not(.disabled).active.el-pager li:not(.disabled):hover {
+                color: #fff !important;
+            }
+        }
 
         .el-aside {
             position: fixed;
@@ -177,6 +211,19 @@
             .el-menu-vertical-demo.el-menu {
                 margin-top: 70px;
                 border: none;
+                max-height: 800px;
+                overflow-y: scroll;
+
+                &::-webkit-scrollbar {
+                    /*滚动条样式*/
+                    width: 0px;
+                    height: 0px;
+                }
+
+                &::-webkit-scrollbar-thumb {
+                    /*滑块的样式*/
+                    background: #304156;
+                }
             }
 
             .btn {
@@ -217,6 +264,7 @@
         .el-main {
             margin-top: 70px;
             background-color: #F0F2F5;
+            padding-top: 30px;
 
             &.hide {
                 margin-left: 64px;

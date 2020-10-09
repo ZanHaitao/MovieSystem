@@ -16,6 +16,10 @@ module.exports = sequelize.define('Admin', {
     loginPwd: {
         type: DataTypes.STRING,
         allowNull: false
+    },
+    type: {
+        type: DataTypes.STRING,
+        allowNull: true
     }
 }, {
     createdAt: true,

@@ -1,0 +1,12 @@
+.add-admin{
+    height: 810px;
+
+    & .add-admin-content{
+        margin-top: 20px;
+        width: 700px;
+
+        .el-button{
+            width: 500px;
+        }
+    }
+}

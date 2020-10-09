@@ -6,6 +6,7 @@
  * @param {*} next 
  */
 module.exports = (err, req, res, next) => {
+    console.log(err);
     if (err) {
         res.status(403).send({
             code: 403,

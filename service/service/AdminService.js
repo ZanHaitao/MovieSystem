@@ -8,14 +8,14 @@ const { Op } = require("sequelize");
  * @param {*} logindId 
  * @param {*} loginPwd 
  */
-exports.loginAdmin = async function(loginId,loginPwd){
+exports.loginAdmin = async function(loginId, loginPwd) {
     loginPwd = md5(loginPwd);
     const result = await Admin.findOne({
         where: {
             loginId,
             loginPwd
         },
-        attributes: ['id', 'name', 'loginId']
+        attributes: ['id', 'name', 'loginId', 'type']
     });
     if (result) {
         return result.toJSON();
@@ -28,7 +28,7 @@ exports.loginAdmin = async function(loginId,loginPwd){
  * @param {*} adminObj 管理员对象
  */
 exports.addAdmin = async function(adminObj) {
-    adminObj = pick(adminObj, 'name', 'loginId', 'loginPwd');
+    adminObj = pick(adminObj, 'name', 'loginId', 'loginPwd', 'type');
     adminObj.loginPwd = md5(adminObj.loginPwd);
     const result = await Admin.create(adminObj);
     return result.toJSON();
@@ -40,7 +40,10 @@ exports.addAdmin = async function(adminObj) {
  * @param {*} adminObj 
  */
 exports.updateAdmin = async function(id, adminObj) {
-    adminObj = pick(adminObj, 'name', 'loginId', 'loginPwd');
+    adminObj = pick(adminObj, 'name', 'loginId', 'loginPwd', 'type');
+    if (adminObj.loginPwd) {
+        adminObj.loginPwd = md5(adminObj.loginPwd);
+    }
     return await Admin.update(adminObj, {
         where: {
             id,
@@ -65,8 +68,8 @@ exports.deleteAdmin = async function(id) {
  * @param {*} id 
  */
 exports.getAdminFindById = async function(id) {
-    const result = await Admin.findByPk(id,{
-        attributes: ['id', 'name', 'loginId']
+    const result = await Admin.findByPk(id, {
+        attributes: ['id', 'name', 'loginId', 'createdAt', 'type']
     })
     if (result) {
         return result.toJSON();
@@ -75,28 +78,35 @@ exports.getAdminFindById = async function(id) {
 }
 
 /**
- * 按条件查询管理员
- * @param {*} page 页数
- * @param {*} limit 显示数据
- * @param {*} name 姓名
- * @param {*} loginId 用户名
+ * 按条件查找管理员
+ * @param {*} page 
+ * @param {*} limit 
+ * @param {*} options 
  */
-exports.getAdminFindAll = async function(page = 1, limit = 10, name = "", loginId = "") {
+exports.getAdminList = async function(page = 1, limit = 10, options = {}) {
+    if (typeof options !== 'object') {
+        throw new Error('配置参数错误！')
+    }
+
+    options = pick(options, 'name', 'loginId', 'type');
     const where = {};
-    if (name) {
+    if ('name' in options && options.name) {
         where.name = {
-            [Op.like]: `%${name}%`
+            [Op.like]: `%${options.name}%`
         }
     }
-    if (loginId) {
-        where.loginId = loginId;
+    if ('loginId' in options && options.loginId) {
+        where.loginId = options.loginId;
+    }
+    if ('type' in options && options.type) {
+        where.type = options.type
     }
 
     const result = await Admin.findAndCountAll({
         where,
         offset: (page - 1) * limit,
         limit: +limit,
-        attributes: ['id', 'name', 'loginId']
+        attributes: ['id', 'name', 'loginId', 'createdAt', 'type']
     });
 
     return {

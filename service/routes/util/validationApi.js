@@ -76,10 +76,6 @@ module.exports = [
         path:'/api/city/:id'
     },
     {
-        method:'POST',
-        path:'/api/comments'
-    },
-    {
         method:'PUT',
         path:'/api/comments/:id'
     },
@@ -124,10 +120,6 @@ module.exports = [
         path:'/api/movietype/:id'
     },
     {
-        method:'POST',
-        path:'/api/order'
-    },
-    {
         method:'PUT',
         path:'/api/order/:id'
     },
@@ -150,10 +142,6 @@ module.exports = [
     {
         method:'POST',
         path:'/api/session'
-    },
-    {
-        method:'PUT',
-        path:'/api/session/:id'
     },
     {
         method:'DELETE',

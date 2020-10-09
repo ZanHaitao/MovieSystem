@@ -1,6 +1,10 @@
 <template>
     <div class="admin-header">
         <div class="logo"></div>
+        <div class="tip">
+            <p><span>当前登录用户：</span><span class="data">{{$store.state.loginAdmin.name}}</span></p>
+            <p><span>权限：</span><span class="data">{{$store.state.loginAdmin.type}}</span></p>
+        </div>
         <div class="login">
             <el-dropdown>
                 <span class="el-dropdown-link">
@@ -18,11 +22,10 @@
 <script>
     export default {
         methods: {
-            goIndex(){
-                console.log('123')
+            goIndex() {
                 this.$router.push('/index')
             },
-            loginOut(){
+            loginOut() {
                 localStorage.removeItem('adminToken');
                 this.$router.push({ name: 'adminLogin' })
             }

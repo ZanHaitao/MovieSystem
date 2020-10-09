@@ -39,7 +39,7 @@
                     </div>
                     <div>
                         <p class="card-title">累计订单</p>
-                        <p class="card-count" v-if="priceSum === undefined">计算中</p>
+                        <p class="card-count" v-if="priceSum === undefined">加载中</p>
                         <p class="card-count" v-else>{{ orderData.count }} 条</p>
                     </div>
                 </el-card>
@@ -50,7 +50,7 @@
                     </div>
                     <div>
                         <p class="card-title">收入总计</p>
-                        <p class="card-count" v-if="priceSum === undefined">计算中</p>
+                        <p class="card-count" v-if="priceSum === undefined">加载中</p>
                         <p class="card-count" v-else>${{ priceSum }}</p>
                     </div>
                 </el-card>
