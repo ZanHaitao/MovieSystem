@@ -11,11 +11,11 @@ module.exports = sequelize.define('Cinema', {
     },
     loginId:{
         type: DataTypes.STRING,
-        allowNull: true
+        allowNull: false
     },
     loginPwd:{
         type: DataTypes.STRING,
-        allowNull: true
+        allowNull: false
     },
     address: {
         type: DataTypes.STRING,

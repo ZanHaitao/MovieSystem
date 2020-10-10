@@ -15,24 +15,11 @@ module.exports = (req, res, next) => {
         next();
         return;
     }
-
-    const validataAdmin = [
-        '/api/admin/whoami',
-        '/api/admin',
-        '/api/user',
-        '/api/banner',
-        '/api/cinema',
-        '/api/cinemaserve',
-        '/api/movie',
-        '/api/movuetype',
-    ]
-
-
-    const url = req.path;
+    
     let result;
-    if (url === '/api/user/whoami' || url.slice(0, url.lastIndexOf('/')) === '/api/session') {
+    if (req.headers.type === 'user') {
         result = jwt.verify(req, 'user');
-    } else if (validataAdmin.indexOf(url.slice(0, url.lastIndexOf('/'))) != -1 || validataAdmin.indexOf(url) != -1) {
+    } else if (req.headers.type === 'admin') {
         result = jwt.verify(req, 'admin');
     } else {
         result = jwt.verify(req, 'cinema');

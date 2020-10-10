@@ -98,14 +98,6 @@ const routes = [{
         name: 'addCinema',
         component: () => import('../views/admin/cinema/addCinema.vue')
     }, {
-        path: 'cinemaservelist',
-        name: 'cinemaServeList',
-        component: () => import('../views/admin/cinemaServe/cinemaServeList.vue')
-    }, {
-        path: 'addcinemaserve',
-        name: 'addCinemaServe',
-        component: () => import('../views/admin/cinemaServe/addCinemaServe.vue')
-    }, {
         path: 'movielist',
         name: 'movieList',
         component: () => import('../views/admin/movie/movieList.vue')
@@ -114,21 +106,9 @@ const routes = [{
         name: 'addMovie',
         component: () => import('../views/admin/movie/addMovie.vue')
     }, {
-        path: 'movietypelist',
-        name: 'movieTypeList',
-        component: () => import('../views/admin/movieType/movieTypeList.vue')
-    }, {
-        path: 'addmovietype',
-        name: 'addMovieType',
-        component: () => import('../views/admin/movieType/addMovieType.vue')
-    }, {
         path: 'commentlist',
         name: 'commentList',
         component: () => import('../views/admin/comment/commentList.vue')
-    }, {
-        path: 'addcomment',
-        name: 'addComment',
-        component: () => import('../views/admin/comment/addComment.vue')
     }, {
         path: 'screenlist',
         name: 'screenList',
@@ -139,7 +119,7 @@ const routes = [{
         component: () => import('../views/admin/screen/addScreen.vue')
     }, {
         path: 'bannerlist',
-        name: 'bannerlist',
+        name: 'bannerList',
         component: () => import('../views/admin/banner/bannerList.vue')
     }, {
         path: 'addbanner',
@@ -159,4 +139,8 @@ const router = new VueRouter({
     routes
 })
 
+const originalPush = VueRouter.prototype.push
+VueRouter.prototype.push = function push(location) {
+    return originalPush.call(this, location).catch(err => err)
+}
 export default router

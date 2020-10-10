@@ -220,7 +220,14 @@
         },
         watch: {
             nowPage() {
-                this.getData();
+                const options = {}
+                if(this.searchLoginId !== ''){
+                    options.loginid = this.searchLoginId;
+                }
+                if(this.searchName !== ''){
+                    options.name = this.searchName;
+                }
+                this.getData(options);
             },
         },
     }

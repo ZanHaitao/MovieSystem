@@ -19,7 +19,7 @@
                         </template>
                         <el-menu-item-group>
                             <el-menu-item index="/admin/adminlist">管理员列表</el-menu-item>
-                            <el-menu-item index="/admin/addadmin"  v-if="$store.state.loginAdmin.type === '超级管理员'">添加管理员</el-menu-item>
+                            <el-menu-item index="/admin/addadmin" v-if="$store.state.loginAdmin.type === '超级管理员'">添加管理员</el-menu-item>
                             <el-menu-item index="/admin/updateadmin">修改信息</el-menu-item>
                         </el-menu-item-group>
                     </el-submenu>
@@ -45,16 +45,6 @@
                     </el-submenu>
                     <el-submenu index="4">
                         <template slot="title">
-                            <i class="el-icon-star-on"></i>
-                            <span slot="title">服务管理</span>
-                        </template>
-                        <el-menu-item-group>
-                            <el-menu-item index="/admin/cinemaservelist">服务列表</el-menu-item>
-                            <el-menu-item index="/admin/addcinemaserve">添加服务</el-menu-item>
-                        </el-menu-item-group>
-                    </el-submenu>
-                    <el-submenu index="5">
-                        <template slot="title">
                             <i class="el-icon-video-camera-solid"></i>
                             <span slot="title">电影管理</span>
                         </template>
@@ -63,27 +53,7 @@
                             <el-menu-item index="/admin/addmovie">添加电影</el-menu-item>
                         </el-menu-item-group>
                     </el-submenu>
-                    <el-submenu index="6">
-                        <template slot="title">
-                            <i class="el-icon-s-help"></i>
-                            <span slot="title">类型管理</span>
-                        </template>
-                        <el-menu-item-group>
-                            <el-menu-item index="/admin/movietypelist">类型列表</el-menu-item>
-                            <el-menu-item index="/admin/addmovietype">添加类型</el-menu-item>
-                        </el-menu-item-group>
-                    </el-submenu>
-                    <el-submenu index="7">
-                        <template slot="title">
-                            <i class="el-icon-s-operation"></i>
-                            <span slot="title">评论管理</span>
-                        </template>
-                        <el-menu-item-group>
-                            <el-menu-item index="/admin/commentlist">评论列表</el-menu-item>
-                            <el-menu-item index="/admin/addcomment">添加评论</el-menu-item>
-                        </el-menu-item-group>
-                    </el-submenu>
-                    <el-submenu index="8">
+                    <el-submenu index="5">
                         <template slot="title">
                             <i class="el-icon-camera-solid"></i>
                             <span slot="title">影厅管理</span>
@@ -94,7 +64,7 @@
                         </el-menu-item-group>
                     </el-submenu>
 
-                    <el-submenu index="9">
+                    <el-submenu index="6">
                         <template slot="title">
                             <i class="el-icon-menu"></i>
                             <span slot="title">广告管理</span>
@@ -104,6 +74,11 @@
                             <el-menu-item index="/admin/addbanner">添加广告</el-menu-item>
                         </el-menu-item-group>
                     </el-submenu>
+
+                    <el-menu-item index="/admin/commentlist">
+                        <i class="el-icon-s-operation"></i>
+                        <span slot="title">评论管理</span>
+                    </el-menu-item>
 
                     <el-menu-item index="/admin/order">
                         <i class="el-icon-s-order"></i>
@@ -150,6 +125,11 @@
 
 <style lang="scss">
     .layout-admin {
+        height: 100%;
+
+        .el-container {
+            height: 100%;
+        }
 
         .el-breadcrumb {
             padding-bottom: 10px;
@@ -160,12 +140,12 @@
             white-space: nowrap;
         }
 
-        .el-dialog__body{
+        .el-dialog__body {
             padding-right: 90px;
         }
 
-        .el-form.demo-ruleForm{
-            padding:40px 60px 20px 0;
+        .el-form.demo-ruleForm {
+            padding: 40px 60px 20px 0;
         }
 
         .el-breadcrumb__inner a:hover,
@@ -211,7 +191,7 @@
             .el-menu-vertical-demo.el-menu {
                 margin-top: 70px;
                 border: none;
-                max-height: 800px;
+                max-height: calc(100% - 70px);
                 overflow-y: scroll;
 
                 &::-webkit-scrollbar {
@@ -230,8 +210,8 @@
                 position: absolute;
                 width: 40px;
                 height: 40px;
-                bottom: 0px;
-                right: 0;
+                top: 20px;
+                right: 2px;
                 color: #fff;
                 font-size: 20px;
             }
@@ -265,6 +245,8 @@
             margin-top: 70px;
             background-color: #F0F2F5;
             padding-top: 30px;
+            height: calc(100% - 60px);
+            ;
 
             &.hide {
                 margin-left: 64px;
@@ -272,6 +254,18 @@
 
             &.show {
                 margin-left: 200px;
+            }
+
+            &::-webkit-scrollbar {
+                /*滚动条样式*/
+                width: 10px;
+                height: 0px;
+            }
+
+            &::-webkit-scrollbar-thumb {
+                /*滑块的样式*/
+                border-radius: 5px;
+                background: #d1d4db;
             }
         }
     }

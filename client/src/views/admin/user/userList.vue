@@ -261,6 +261,16 @@
         },
         watch: {
             nowPage() {
+                const options = {}
+                if(this.searchLoginId !== ''){
+                    options.loginid = this.searchLoginId;
+                }
+                if(this.searchName !== ''){
+                    options.name = this.searchName;
+                }
+                if(this.searchMobile !== ''){
+                    options.mobile = this.searchMobile;
+                }
                 this.getData();
             },
         },

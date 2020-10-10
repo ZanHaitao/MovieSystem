@@ -59,12 +59,10 @@
             }
         },
         created() {
-            console.log(this.$store.state.loginAdmin.name !== undefined)
             if (this.$store.state.loginAdmin.name !== undefined) {
                 this.$router.push({ name: 'adminIndex' });
-                this.success(res.name, res.type);
+                this.success(this.$store.state.loginAdmin.name, this.$store.state.loginAdmin.type);
             }
-
         },
         methods: {
             submitForm(formName) {

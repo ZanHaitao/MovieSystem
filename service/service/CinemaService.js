@@ -30,7 +30,8 @@ exports.loginCinema = async function(loginId, loginPwd) {
  * @param {*} cinemaObj 
  */
 exports.addCinema = async function(cinemaObj) {
-    cinemaObj = pick(pick, 'name', 'address', 'mobile', 'imgUrl', 'CityId', 'loginId', 'loginPwd')
+    console.log(cinemaObj);
+    cinemaObj = pick(cinemaObj, 'name', 'address', 'mobile', 'imgUrl', 'CityId', 'loginId', 'loginPwd')
     cinemaObj.loginPwd = md5(cinemaObj.loginPwd);
     const result = await Cinema.create(cinemaObj);
     return result.toJSON();
@@ -126,9 +127,9 @@ exports.getCinemaFindAll = async function(page = 1, limit = 10, options = {}) {
             model: City,
             attributes: ['id', 'province', 'city']
         },
-        // order: [
-        //     ['id', 'DESC']
-        // ]
+        order: [
+            ['id', 'DESC']
+        ]
     });
 
     return {

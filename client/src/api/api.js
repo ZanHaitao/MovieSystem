@@ -68,6 +68,50 @@ export default {
         })
     },
     /**
+     * 获取banner广告
+     */
+    async getBanner() {
+        return await axios().get('/api/banner', {
+            params: {
+                limit: 1
+            }
+        })
+    },
+    /**
+     * 获取banner广告列表
+     */
+    async getBannerList(options) {
+        return await axios().get('/api/banner', {
+            params: {
+                ...options
+            }
+        })
+    },
+    /**
+     * 通过ID查询banner广告
+     */
+    async getBannerFindById(id) {
+        return await axios().get('/api/banner/' + id);
+    },
+    /**
+     * 添加banner广告
+     */
+    async addBanner(options) {
+        return await axios().post('/api/banner', options);
+    },
+    /**
+     * 修改banner广告
+     */
+    async updateBanner(id, options) {
+        return await axios().put('/api/banner/' + id, options)
+    },
+    /**
+     * 删除banner广告
+     */
+    async deleteBanner(id, options) {
+        return await axios().delete('/api/banner/' + id, options)
+    },
+    /**
      * 获取影院列表
      * @param {*} options
      */
@@ -144,6 +188,13 @@ export default {
         return await axios().get(`/api/comments/${id}`)
     },
     /**
+     * 通过id删除评论
+     * @param {*} id
+     */
+    async deleteComment(id) {
+        return await axios().delete(`/api/comments/${id}`)
+    },
+    /**
      * 发布评论
      * @param {*} options
      */
@@ -162,6 +213,35 @@ export default {
         })
     },
     /**
+     * 通过id获取影院服务
+     * @param {*} options
+     */
+    async getCinemaServiceFindById(id) {
+        return await axios().get('/api/movieserver/' + id);
+    },
+    /**
+     * 添加影院服务
+     * @param {*} options
+     */
+    async addCinemaService(options) {
+        return await axios().post('/api/movieserver', options)
+    },
+    /**
+     * 修改影院服务
+     * @param {*} id
+     * @param {*} options
+     */
+    async updateCinemaService(id, options) {
+        return await axios().put('/api/movieserver/' + id, options)
+    },
+    /**
+     * 删除影院服务
+     * @param {*} id
+     */
+    async deleteCinemaService(id) {
+        return await axios().delete('/api/movieserver/' + id)
+    },
+    /**
      * 获取电影列表
      * @param {*} options
      */
@@ -178,6 +258,28 @@ export default {
      */
     async getMovieFindById(id) {
         return await axios().get(`/api/movie/${id}`)
+    },
+    /**
+     * 添加电影信息
+     * @param {*} options
+     */
+    async addMovie(options) {
+        return await axios().post(`/api/movie`, options);
+    },
+    /**
+     * 修改电影信息
+     * @param {*} options
+     * @param {*} id
+     */
+    async updateMovie(id, options) {
+        return await axios().put(`/api/movie/` + id, options);
+    },
+    /**
+     * 删除电影信息
+     * @param {*} id
+     */
+    async deleteMovie(id) {
+        return await axios().delete(`/api/movie/` + id);
     },
     /**
      * 获取订单列表
@@ -216,15 +318,32 @@ export default {
         })
     },
     /**
-     * 获取电影场次
+     * 通过id获取电影影厅
+     * @param {*} id
+     */
+    async getScreensFindById(id) {
+        return await axios().get('/api/screens/'+id)
+    },
+    /**
+     * 添加电影影厅
      * @param {*} options
      */
-    async getSessionList(options) {
-        return await axios().get('/api/session', {
-            params: {
-                ...options
-            }
-        })
+    async addScreens(options) {
+        return await axios().post('/api/screens', options)
+    },
+    /**
+     * 修改电影影厅
+     * @param {*} options
+     */
+    async updateScreens(id, options) {
+        return await axios().put('/api/screens/' + id, options)
+    },
+    /**
+     * 删除电影影厅
+     * @param {*} options
+     */
+    async deleteScreens(id) {
+        return await axios().delete('/api/screens/' + id);
     },
     /**
      * 修改电影场次

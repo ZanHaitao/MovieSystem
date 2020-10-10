@@ -1,4 +1,8 @@
-import axios from 'axios'
+import axios from 'axios';
+import validataUser from './validataUser';
+import validataAdmin from './validataAdmin';
+import validataCinema from './validataCinema';
+
 
 export default function() {
     const instance = axios.create()
@@ -7,34 +11,34 @@ export default function() {
     const adminToken = localStorage.getItem('adminToken');
     const cinemaToken = localStorage.getItem('cinemaToken');
 
-    const validataUser = [
-        '/api/user/whoami',
-    ]
 
-    const validataAdmin = [
-        '/api/admin/whoami',
-        '/api/admin',
-        '/api/user',
-        '/api/banner',
-        '/api/cinema',
-        '/api/cinemaserve',
-        '/api/movie',
-        '/api/movuetype',
-    ]
 
     instance.interceptors.request.use((request) => {
         const url = request.url;
-        if (validataUser.indexOf(url) != -1 && userToken) {
+        const isUser = validataUser.findIndex(value => {
+            return request.method === value.method && (url === value.path || url.slice(0, url.lastIndexOf('/')) === value.path)
+        })
+        const isAdmin = validataAdmin.findIndex(value => {
+            return request.method === value.method && (url === value.path || url.slice(0, url.lastIndexOf('/')) === value.path)
+        })
+
+        if (isUser != -1 && userToken) {
             request.headers.post.authorization = "bearer " + userToken;
-        } else if ((validataAdmin.indexOf(url.slice(0, url.lastIndexOf('/'))) != -1 || validataAdmin.indexOf(url)) != -1 && adminToken) {
+            request.headers.put.authorization = "bearer " + userToken;
+            request.headers.type = 'user';
+        }
+        if (isAdmin != -1 && adminToken) {
             request.headers.post.authorization = "bearer " + adminToken;
             request.headers.put.authorization = "bearer " + adminToken;
             request.headers.delete.authorization = "bearer " + adminToken;
-        } else if (url.indexOf('cinema') != -1 && cinemaToken) {
+            request.headers.type = 'admin';
+        }
+        if (url.indexOf('cinema') != -1 && cinemaToken) {
             request.headers.post.authorization = "bearer " + cinemaToken;
             request.headers.put.authorization = "bearer " + cinemaToken;
             request.headers.delete.authorization = "bearer " + cinemaToken;
         }
+
         return request
     })
 

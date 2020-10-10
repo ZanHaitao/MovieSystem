@@ -23,7 +23,7 @@
                         <el-radio v-model="ruleForm.UserSex" label="2">女</el-radio>
                     </el-form-item>
                     <el-form-item label="生　日 :" prop="Birthday">
-                        <el-date-picker v-model="ruleForm.Birthday" type="date" placeholder="选择日期">
+                        <el-date-picker value-format="yyyy-MM-dd" v-model="ruleForm.Birthday" type="date" placeholder="选择日期">
                         </el-date-picker>
                     </el-form-item>
                     <el-form-item label="电　话 :" prop="Mobile">

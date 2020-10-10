@@ -1,0 +1,23 @@
+.comment-list {
+
+    &>.comment-content {
+        padding: 0;
+        height: 1100px;
+
+        .cell{
+            white-space: nowrap;
+        }
+
+        
+        .search{
+            display: flex;
+            justify-content: space-around;
+            padding: 20px 0;
+            border-bottom: 1px dashed rgba($color: #000000, $alpha: 0.1);
+
+            .el-input-group{
+                width: 30%;
+            }
+        }
+    }
+}

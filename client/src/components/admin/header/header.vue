@@ -27,6 +27,7 @@
             },
             loginOut() {
                 localStorage.removeItem('adminToken');
+                this.$store.dispatch('changeAdmin',{});
                 this.$router.push({ name: 'adminLogin' })
             }
         },

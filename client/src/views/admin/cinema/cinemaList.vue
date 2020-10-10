@@ -53,7 +53,7 @@
             </el-card>
         </dir>
 
-        <el-dialog title="用户信息修改" :visible.sync="dialogFormVisible">
+        <el-dialog title="影院信息修改" :visible.sync="dialogFormVisible">
             <el-form :model="form">
                 <el-form-item label="登录账号" :label-width="formLabelWidth">
                     <el-input disabled v-model="form.loginId" autocomplete="off"></el-input>
@@ -65,7 +65,7 @@
                     <el-input v-model="form.address" autocomplete="off"></el-input>
                 </el-form-item>
                 <el-form-item label="选择城市" :label-width="formLabelWidth">
-                    <el-cascader v-model="form.city" :options="form.options" :props="{ expandTrigger: 'hover' }" @change="handleChange"></el-cascader>
+                    <el-cascader v-model="form.city" :options="form.options" :props="{ expandTrigger: 'hover' }"></el-cascader>
                 </el-form-item>
                 <el-form-item label="联系方式" :label-width="formLabelWidth">
                     <el-input v-model="form.mobile" autocomplete="off"></el-input>
