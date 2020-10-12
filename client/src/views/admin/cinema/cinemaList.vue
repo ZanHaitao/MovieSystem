@@ -121,14 +121,17 @@
             },
         },
         created() {
-            if (this.$store.state.loginAdmin.name === undefined) {
-                this.$router.push({ name: 'adminLogin' })
-            }
+            setTimeout(() => {
+                if (this.$store.state.loginAdmin.name === undefined) {
+                    this.$router.push({ name: 'adminLogin' })
+                }
+            }, 1000);
+
             this.getData();
 
             this.$api.getCityList({
                 limit: 500
-            }).then(res => {
+            },'admin').then(res => {
                 this.cityList = res.data;
                 const options = [];
                 const provinceObj = {}
@@ -195,7 +198,7 @@
                     CityId: CityId.data[0].id,
                     mobile: this.form.mobile,
                     address: this.form.address,
-                }).then(res => {
+                },'admin').then(res => {
                     if (res) {
                         this.dialogFormVisible = false;
                         this.success('修改成功');
@@ -219,7 +222,7 @@
                     cancelButtonText: '取消',
                     type: 'warning'
                 }).then(() => {
-                    this.$api.deleteCinema(row.id).then(res => {
+                    this.$api.deleteCinema(row.id,'admin').then(res => {
                         if (res) {
                             this.$message({
                                 type: 'success',
@@ -238,7 +241,7 @@
             getCityId(key) {
                 return this.$api.getCityList({
                     key: key
-                })
+                },'admin')
             },
             warning() {
                 this.$notify({
@@ -266,7 +269,7 @@
                     limit: this.limit,
                     page: this.nowPage,
                     ...options
-                }).then(res => {
+                },'admin').then(res => {
                     this.total = res.count;
                     this.cinemaData = res.data;
                     this.loading = false;
@@ -284,12 +287,12 @@
                     return
                 }
                 this.loading = true;
-                this.$api.getCinemaFindById(this.searchCinemaId).then(res => {
+                this.$api.getCinemaFindById(this.searchCinemaId,'admin').then(res => {
                     if (res) {
                         this.total = 1;
                         this.cinemaData = [res];
                         this.loading = false;
-                    }else{
+                    } else {
                         this.loading = false;
                         this.error()
                     }
@@ -327,13 +330,13 @@
         watch: {
             async nowPage() {
                 const options = {}
-                if(this.searchLoginId !== ''){
+                if (this.searchLoginId !== '') {
                     options.loginid = this.searchLoginId;
                 }
-                if(this.searchName !== ''){
+                if (this.searchName !== '') {
                     options.name = this.searchName;
                 }
-                if(this.searchCity !== ''){
+                if (this.searchCity !== '') {
                     const CityId = await this.getCityId(this.searchCity);
                     options.cityid = CityId.data[0] ? CityId.data[0].id : '9999';
                 }

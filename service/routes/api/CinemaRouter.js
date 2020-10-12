@@ -1,8 +1,35 @@
 const express = require('express');
 const CinemaService = require('../../service/CinemaService');
 const { asyncHandler, sendMsg } = require('../util/util');
-
+const jwt = require('../util/jwt');
 const router = express.Router();
+
+/**
+ * 影院登录
+ */
+router.post('/login', asyncHandler(async (req, res) => {
+    const result = await CinemaService.loginCinema(req.body.loginId, req.body.loginPwd);
+    console.log(result);
+    if (result) {
+        jwt.publish(res, undefined, {
+            CinemaId: result.id.toString()
+        }, 'cineam')
+    }
+    return result;
+}));
+
+/**
+ * 获取影院身份
+ */
+router.post('/whoami', asyncHandler(async (req, res) => {
+    if (req.token.CinemaId) {
+        const result = await CinemaService.getCinemaFindById(req.token.CinemaId);
+        return result;
+    } else {
+        res.send(null);
+        return ;
+    }
+}));
 
 /**
  * 获取所有影院

@@ -73,7 +73,7 @@
                     page: this.nowPage,
                     limit: this.limit,
                     userid: this.$store.state.loginUser.id
-                }).then(res => {
+                },'user').then(res => {
                     this.total = res.count;
                     this.orderData = res.data;
                 })

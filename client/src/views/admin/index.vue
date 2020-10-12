@@ -171,24 +171,27 @@
                     return this.movieData.data.slice(0, 5);
                 } catch {}
             },
-            priceSum(){
+            priceSum() {
                 try {
                     let sum = 0;
-                    for(let item of this.orderData.data){
+                    for (let item of this.orderData.data) {
                         sum += Math.floor((item.Session.price * item.number));
                     }
-                    return sum.toString().replace(/(?<=\d)(?<!\.\d*)(?=(\d{3})+(\.|$))/g,',');
+                    return sum.toString().replace(/(?<=\d)(?<!\.\d*)(?=(\d{3})+(\.|$))/g, ',');
                 } catch {}
             }
         },
         created() {
-            if (this.$store.state.loginAdmin.name === undefined) {
-                this.$router.push({ name: 'adminLogin' })
-            }
+            setTimeout(() => {
+                if (this.$store.state.loginAdmin.name === undefined) {
+                    this.$router.push({ name: 'adminLogin' })
+                }
+            }, 1000);
+
 
             this.$api.getUserList({
                 limit: 9999999
-            }).then(res => {
+            },'admin').then(res => {
                 this.userData = res;
             })
 
@@ -196,17 +199,17 @@
                 limit: 9999999
             }).then(res => {
                 this.cinemaData = res;
-            })
+            },'admin')
 
             this.$api.getMovieList({
                 limit: 9999999
-            }).then(res => {
+            },'admin').then(res => {
                 this.movieData = res;
             })
 
             this.$api.getOrderList({
                 limit: 9999999
-            }).then(res => {
+            },'admin').then(res => {
                 this.orderData = res;
             })
         },

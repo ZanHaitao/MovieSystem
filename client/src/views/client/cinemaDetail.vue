@@ -90,24 +90,24 @@
             getData() {
                 this.$api.getMovieList({
                     limit: 15
-                }).then(res => {
+                },'user').then(res => {
                     this.movieListData = res.data;
                 })
 
-                this.$api.getCinemaFindById(this.cinemaId).then(res => {
+                this.$api.getCinemaFindById(this.cinemaId,'user').then(res => {
                     this.cinemaData = res;
                 })
 
                 this.$api.getCinemaServiceList({
                     cinemaid: this.cinemaId
-                }).then(res => {
+                },'user').then(res => {
                     this.$set(this.cinemaData, 'server', res.data);
                 })
 
                 this.$api.getSessionList({
                     cinemaid: this.cinemaId,
                     limit: 999
-                }).then(res => {
+                },'user').then(res => {
                     const movieObj = {}
 
                     for (let i = 0; i < res.data.length; i++) {
@@ -122,7 +122,7 @@
                         this.$api.getSessionList({
                             cinemaid: this.cinemaId,
                             movieid: item.id
-                        }).then(res => {
+                        },'user').then(res => {
                             movieObj[key].session = res.data;
                             movieObj[key].session = movieObj[key].session.map((item, index) => {
                                 item.screen = res.data[index].Screen.name;

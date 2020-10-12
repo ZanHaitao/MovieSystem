@@ -68,27 +68,19 @@
             MyRanking
         },
         created() {
-            this.$api.getBanner().then(res => {
+            this.$api.getBanner('user').then(res => {
                 this.imgUrl = res.data[0].imgUrl;
             });
 
             this.$api.getMovieList({
                 limit: 25
-            }).then(res => {
+            },'user').then(res => {
                 this.hostMovie = res.data.slice(0, 8);
                 this.futureMovie = res.data.slice(8, 16);
                 this.highestMovie = res.data.slice(0, 5);
                 this.forwardMovie = res.data.slice(5, 15);
                 this.likesMovie = res.data.slice(15);
             });
-
-            this.$api.whoAmI().then(res => {
-                if (res.data !== null) {
-                    this.$store.dispatch('changeUser', res)
-                }
-            }).catch(err => {
-                console.log("未获取到用户");
-            })
         },
     }
 </script>

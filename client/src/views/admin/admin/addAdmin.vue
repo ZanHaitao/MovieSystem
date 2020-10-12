@@ -79,9 +79,12 @@
             }
         },
         created() {
-            if (this.$store.state.loginAdmin.name === undefined) {
-                this.$router.push({ name: 'adminLogin' })
-            }
+            setTimeout(() => {
+                if (this.$store.state.loginAdmin.name === undefined) {
+                    this.$router.push({ name: 'adminLogin' })
+                }
+            }, 1000);
+
         },
         methods: {
             submitForm(formName) {
@@ -91,7 +94,7 @@
                             loginId: this.ruleForm.LoginId,
                             loginPwd: this.ruleForm.LoginPwd,
                             name: this.ruleForm.name,
-                            type:'管理员'
+                            type: '管理员'
                         }).then(res => {
                             if (!res) {
                                 this.error();

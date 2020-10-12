@@ -87,13 +87,16 @@
             }
         },
         created() {
-            if (this.$store.state.loginAdmin.name === undefined) {
-                this.$router.push({ name: 'adminLogin' })
-            }
+            setTimeout(() => {
+                if (this.$store.state.loginAdmin.name === undefined) {
+                    this.$router.push({ name: 'adminLogin' })
+                }
+            }, 1000);
+
         },
         methods: {
             submitForm() {
-                if (this.form.name === '' || this.form.seat.length === 0) {
+                if (this.form.name === '' || this.form.people === 0) {
                     this.warning();
                     return;
                 }
@@ -101,7 +104,7 @@
                     name: this.form.name,
                     people: this.form.people,
                     seat: JSON.stringify(this.form.seat),
-                }).then(res => {
+                },'admin').then(res => {
                     if (res) {
                         this.success();
                         this.$router.push({ name: 'screenList' })
@@ -112,6 +115,7 @@
             },
             onSubmit() {
                 this.form.seat = [];
+                this.form.people = 0;
                 if (this.list === '') {
                     this.warning();
                     return;
@@ -122,7 +126,6 @@
                     const arr = [];
                     for (let j = 0; j < col; j++) {
                         arr.push(3);
-                        this.people++;
                     }
                     this.form.seat.push(arr);
                 }
@@ -130,8 +133,10 @@
             handleClick(item, index) {
                 if (item[index] === 0) {
                     item.splice(index, 1, 3);
+                    this.form.people--;
                 } else {
                     item.splice(index, 1, 0);
+                    this.form.people++;
                 }
             },
             success() {

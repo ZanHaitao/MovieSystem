@@ -29,7 +29,7 @@
 
                 this.$api.getCityList({
                     key: city.slice(0, city.length - 1)
-                }).then(res => {
+                },'user').then(res => {
                     this.$store.dispatch('changeCity', {
                         CityId: res.data[0].id
                     })

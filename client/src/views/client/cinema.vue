@@ -19,14 +19,14 @@
             getData() {
                 this.$api.getCinemaList({
                     cityid: this.$store.state.CityId
-                }).then(res => {
+                },'user').then(res => {
                     this.cinemaData = res.data;
 
                     for (let i = 0; i < this.cinemaData.length; i++) {
                         const item = this.cinemaData[i]
                         this.$api.getCinemaServiceList({
                             cinemaid: item.id
-                        }).then(res => {
+                        },'user').then(res => {
                             this.$set(item, 'server', res.data);
                         })
                     }

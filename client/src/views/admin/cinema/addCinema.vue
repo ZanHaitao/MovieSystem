@@ -137,13 +137,16 @@
             }
         },
         created() {
-            if (this.$store.state.loginAdmin.name === undefined) {
-                this.$router.push({ name: 'adminLogin' })
-            }
+            setTimeout(() => {
+                if (this.$store.state.loginAdmin.name === undefined) {
+                    this.$router.push({ name: 'adminLogin' })
+                }
+            }, 1000);
+
 
             this.$api.getCityList({
                 limit: 500
-            }).then(res => {
+            },'admin').then(res => {
                 this.cityList = res.data;
                 const options = [];
                 const provinceObj = {}
@@ -193,7 +196,7 @@
             getCityId(key) {
                 return this.$api.getCityList({
                     key: key
-                })
+                },'admin')
             },
             submitForm(formName) {
                 this.$refs[formName].validate((valid) => {
@@ -207,7 +210,7 @@
                                 CityId: res.data[0].id,
                                 mobile: this.ruleForm.Mobile,
                                 imgUrl: this.ruleForm.ImgUrl,
-                            }).then(res => {
+                            },'admin').then(res => {
                                 if (res) {
                                     this.success();
                                     this.$router.push({ name: 'cinemaList' })

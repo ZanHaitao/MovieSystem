@@ -113,9 +113,12 @@
             },
         },
         created() {
-            if (this.$store.state.loginAdmin.name === undefined) {
-                this.$router.push({ name: 'adminLogin' })
-            }
+            setTimeout(() => {
+                if (this.$store.state.loginAdmin.name === undefined) {
+                    this.$router.push({ name: 'adminLogin' })
+                }
+            }, 1000);
+
             this.getData();
         },
         methods: {
@@ -142,7 +145,7 @@
                     cancelButtonText: '取消',
                     type: 'warning'
                 }).then(() => {
-                    this.$api.deleteComment(row.id).then(res => {
+                    this.$api.deleteComment(row.id,'admin').then(res => {
                         if (res) {
                             this.$message({
                                 type: 'success',
@@ -184,7 +187,7 @@
                     limit: this.limit,
                     page: this.nowPage,
                     ...options
-                }).then(res => {
+                },'admin').then(res => {
                     this.total = res.count;
                     this.commentData = res.data;
                     this.loading = false;
@@ -202,7 +205,7 @@
                     return
                 }
                 this.loading = true;
-                this.$api.getCommentFindById(this.searchCommentId).then(res => {
+                this.$api.getCommentFindById(this.searchCommentId,'admin').then(res => {
 
                     if (res) {
                         this.total = 1;
@@ -222,9 +225,9 @@
 
                 const result = await this.$api.getMovieList({
                     name: this.searchMovieName
-                })
+                },'admin')
 
-                if(result.count === 0){
+                if (result.count === 0) {
                     this.error();
                     return;
                 }
@@ -241,9 +244,9 @@
 
                 const result = await this.$api.getUserList({
                     name: this.searchUserName,
-                })
+                },'admin')
 
-                if(result.count === 0){
+                if (result.count === 0) {
                     this.error();
                     return;
                 }

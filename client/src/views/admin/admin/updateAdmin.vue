@@ -79,15 +79,18 @@
             }
         },
         created() {
-            if (this.$store.state.loginAdmin.name === undefined) {
-                this.$router.push({ name: 'adminLogin' })
-            }
+            setTimeout(() => {
+                if (this.$store.state.loginAdmin.name === undefined) {
+                    this.$router.push({ name: 'adminLogin' })
+                }
+            }, 1000);
+
         },
         methods: {
             submitForm(formName) {
                 this.$refs[formName].validate((valid) => {
                     if (valid) {
-                        this.$api.updateAdmin(this.$store.state.loginAdmin.id,{
+                        this.$api.updateAdmin(this.$store.state.loginAdmin.id, {
                             loginPwd: this.ruleForm.LoginPwd,
                             name: this.ruleForm.name,
                         }).then(res => {

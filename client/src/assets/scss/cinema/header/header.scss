@@ -1,0 +1,54 @@
+.cinema-header {
+
+
+    &>.logo {
+        position: absolute;
+        width: 170px;
+        height: 70px;
+        background: url(https://s1.ax1x.com/2020/10/07/0aTsmR.png) no-repeat 0;
+        background-size: 135px 45px;
+    }
+
+    &>.tip {
+        position: absolute;
+        right: 120px;
+        height: 70px;
+        font-size: 14px;
+        box-sizing: border-box;
+
+        p {
+            height: 70px;
+            color: #999;
+            display: flex;
+            align-items: center;
+            span{
+                display: inline-block;
+                width: 100px;
+                text-align: right;
+            }
+
+            span.data {
+                width: 200px;
+                color: #304156;
+                font-weight: bold;
+                text-align: left;
+            }
+        }
+    }
+
+    &>.login {
+        float: right;
+        margin-top: 13px;
+
+        .portrait {
+            display: inline-block;
+            vertical-align: middle;
+            margin-right: 10px;
+            background: url(https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=1854206704,3887283128&fm=26&gp=0.jpg) no-repeat;
+            background-size: cover;
+            border-radius: 6px;
+            width: 40px;
+            height: 40px;
+        }
+    }
+}

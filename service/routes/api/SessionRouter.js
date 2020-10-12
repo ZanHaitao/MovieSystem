@@ -46,10 +46,11 @@ router.post('/', asyncHandler(async (req, res) => {
  * 修改场次信息
  */
 router.put('/:id', asyncHandler(async (req, res) => {
-    if (req.token.UserId || req.token.AdminId) {
+    if (req.token.UserId || req.token.AdminId || req.token.CinemaId) {
         return await SessionService.updateSession(req.params.id, req.body);
     } else {
         res.status(403).send(sendMsg(403, "没有权限访问该接口！"));
+        return;
     }
 }));
 

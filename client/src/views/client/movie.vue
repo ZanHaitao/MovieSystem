@@ -31,14 +31,14 @@
         created() {
             this.$api.getMovieTypeList({
                 limit: 999
-            }).then(res => {
+            },'user').then(res => {
                 this.listData = res.data;
             });
 
             this.$api.getMovieList({
                 page: this.nowPage,
                 limit: this.limit
-            }).then(res => {
+            },'user').then(res => {
                 this.total = res.count
                 this.movieData = res.data;
             })
@@ -97,7 +97,7 @@
                 }
                 this.$api.getMovieList({
                     ...options
-                }).then(res => {
+                },'user').then(res => {
                     this.total = res.count
                     this.movieData = res.data;
                 })

@@ -1,0 +1,147 @@
+.cinema-index {
+    
+    .data-show-content {
+        width: 100%;
+        margin-top: 40px;
+
+        .data-row {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 40px;
+
+            .el-card.data-item {
+                width: 23.5%;
+                height: 150px;
+
+                .el-card__body {
+                    height: 100%;
+                    box-sizing: border-box;
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    cursor: pointer;
+
+                    .icon {
+                        font-size: 60px;
+                        padding: 20px;
+                        border-radius: 5px;
+                        transition: all .5s;
+                    }
+
+                    .card-title {
+                        font-size: 16px;
+                        font-weight: bold;
+                        color: #666;
+                        text-align: right;
+
+                    }
+
+                    .card-count {
+                        font-size: 18px;
+                        font-weight: bold;
+                        margin-top: 20px;
+                        text-align: right;
+                    }
+
+                    &:hover {
+                        .icon {
+                            color: #fff;
+                        }
+                    }
+                }
+
+
+
+                &:nth-child(1) {
+                    .icon {
+                        color: #40C9C6;
+                    }
+
+                    &:hover {
+                        .icon {
+                            background-color: #40C9C6;
+                        }
+                    }
+                }
+
+                &:nth-child(2) {
+                    .icon {
+                        color: #36A3F7;
+                    }
+
+                    &:hover {
+                        .icon {
+                            background-color: #36A3F7;
+                        }
+                    }
+                }
+
+                &:nth-child(3) {
+                    .icon {
+                        color: #F4516C;
+                    }
+
+                    &:hover {
+                        .icon {
+                            background-color: #F4516C;
+                        }
+                    }
+                }
+
+                &:nth-child(4) {
+                    .icon {
+                        color: #34BFA3;
+                    }
+
+                    &:hover {
+                        .icon {
+                            background-color: #34BFA3;
+                        }
+                    }
+                }
+
+                &:nth-child(5) {
+                    .icon {
+                        color: #F7BA2A;
+                    }
+
+                    &:hover {
+                        .icon {
+                            background-color: #F7BA2A;
+                        }
+                    }
+                }
+            }
+
+            .el-card.data-list {
+                width: 49%;
+
+                .el-card__body {
+                    .cell{
+                        white-space: nowrap;
+                    }
+
+                    .title.blue{
+                        border-color: #36A3F7;
+                    }
+                    .title.green{
+                        border-color: #34BFA3;
+                    }
+                    .title.pink{
+                        border-color: #F7BA2A;
+                    }
+                    .title {
+                        font-size: 18px;
+                        font-weight: bold;
+                        border-left: 5px solid #EF4238;
+                        height: 25px;
+                        line-height: 25px;
+                        padding-left: 10px;
+                        margin-bottom: 20px;
+                    }
+                }
+            }
+        }
+    }
+}

@@ -127,10 +127,35 @@ const routes = [{
         component: () => import('../views/admin/banner/addBanner.vue')
     }]
 }, {
-    path: '/cinema',
+    path: '/cinemaadmin',
     name: 'cinemaDefault',
+    redirect: '/cinemaadmin/login',
     component: cinemaDefault,
-    children: []
+    children: [{
+        path: 'login',
+        name: 'cinemaLogin',
+        component: () => import('../views/cinema/login.vue')
+    }, {
+        path: 'index',
+        name: 'cinemaIndex',
+        component: () => import('../views/cinema/index.vue')
+    }, {
+        path: 'info',
+        name: 'cinemaInfo',
+        component: () => import('../views/cinema/info.vue')
+    }, {
+        path: 'order',
+        name: 'cinemaOrder',
+        component: () => import('../views/cinema/order.vue')
+    }, {
+        path: 'session',
+        name: 'cinemaSession',
+        component: () => import('../views/cinema/session.vue')
+    }, {
+        path: 'service',
+        name: 'cinemaServive',
+        component: () => import('../views/cinema/service.vue')
+    }, ]
 }, ]
 
 const router = new VueRouter({

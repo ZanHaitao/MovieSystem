@@ -59,10 +59,13 @@
             }
         },
         created() {
-            if (this.$store.state.loginAdmin.name !== undefined) {
-                this.$router.push({ name: 'adminIndex' });
-                this.success(this.$store.state.loginAdmin.name, this.$store.state.loginAdmin.type);
-            }
+            setTimeout(() => {
+                if (this.$store.state.loginAdmin.name !== undefined) {
+                    this.$router.push({ name: 'adminIndex' });
+                    this.success(this.$store.state.loginAdmin.name, this.$store.state.loginAdmin.type);
+                }
+            }, 1000)
+
         },
         methods: {
             submitForm(formName) {

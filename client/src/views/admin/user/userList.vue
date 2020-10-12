@@ -145,7 +145,7 @@
                     sex: this.form.sex === '男' ? 1 : 0,
                     mobile: this.form.mobile,
                     birthday: this.form.birthday,
-                }).then(res => {
+                },'admin').then(res => {
                     if (res) {
                         this.dialogFormVisible = false;
                         this.success('修改成功');
@@ -168,7 +168,7 @@
                     cancelButtonText: '取消',
                     type: 'warning'
                 }).then(() => {
-                    this.$api.deleteUser(row.id).then(res => {
+                    this.$api.deleteUser(row.id,'admin').then(res => {
                         console.log(res)
                         if (res) {
                             this.$message({
@@ -205,7 +205,7 @@
                     limit: this.limit,
                     page: this.nowPage,
                     ...options
-                }).then(res => {
+                },'admin').then(res => {
                     this.total = res.count;
                     this.userData = res.data;
                     this.loading = false;
@@ -223,7 +223,7 @@
                     return
                 }
                 this.loading = true;
-                this.$api.getUserFindById(this.searchUserId).then(res => {
+                this.$api.getUserFindById(this.searchUserId,'admin').then(res => {
                     if (res) {
                         this.total = 1;
                         this.userData = [res];

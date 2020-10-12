@@ -51,11 +51,11 @@
             changData() {
                 this.$api.getMovieFindById(this.$route.params.id).then(res => {
                     this.movieData = res;
-                });
+                },'user');
 
                 this.$api.getMovieList({
                     limit: 15
-                }).then(res => {
+                },'user').then(res => {
                     this.movieListData = res.data;
                 })
                 this.movieId = this.$route.params.id;

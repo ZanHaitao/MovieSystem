@@ -34,7 +34,7 @@
         created() {
             this.$api.getMovieList({
                 limit: 10
-            }).then(res => {
+            },'user').then(res => {
                 this.movieList = res.data;
             })
         },
@@ -46,7 +46,7 @@
                 this.$api.getMovieList({
                     page: page,
                     limit: 10
-                }).then(res => {
+                },'user').then(res => {
                     this.movieList = res.data;
                 })
             }

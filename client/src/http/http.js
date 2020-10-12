@@ -19,36 +19,50 @@ export default function() {
             return request.method === value.method && (url === value.path || url.slice(0, url.lastIndexOf('/')) === value.path)
         })
         const isAdmin = validataAdmin.findIndex(value => {
+            return request.method === value.method && (url === value.path || url.slice(0, url.lastIndexOf('/')) === value.path) && url != '/api/cinema/whoami'
+        })
+        const isCinema = validataCinema.findIndex(value => {
             return request.method === value.method && (url === value.path || url.slice(0, url.lastIndexOf('/')) === value.path)
         })
-
-        if (isUser != -1 && userToken) {
-            request.headers.post.authorization = "bearer " + userToken;
-            request.headers.put.authorization = "bearer " + userToken;
-            request.headers.type = 'user';
+        const method = request.method
+        if (isUser != -1 && userToken && request.headers.type == 'user') {
+            if (method === 'post') {
+                request.headers.post.authorization = "bearer " + userToken;
+            } else if (method === 'put') {
+                request.headers.put.authorization = "bearer " + userToken;
+            } else if (method === 'delete') {
+                request.headers.delete.authorization = "bearer " + userToken;
+            }
         }
-        if (isAdmin != -1 && adminToken) {
-            request.headers.post.authorization = "bearer " + adminToken;
-            request.headers.put.authorization = "bearer " + adminToken;
-            request.headers.delete.authorization = "bearer " + adminToken;
-            request.headers.type = 'admin';
+        if (isAdmin != -1 && adminToken && request.headers.type == 'admin') {
+            if (method === 'post') {
+                request.headers.post.authorization = "bearer " + adminToken;
+            } else if (method === 'put') {
+                request.headers.put.authorization = "bearer " + adminToken;
+            } else if (method === 'delete') {
+                request.headers.delete.authorization = "bearer " + adminToken;
+            }
         }
-        if (url.indexOf('cinema') != -1 && cinemaToken) {
-            request.headers.post.authorization = "bearer " + cinemaToken;
-            request.headers.put.authorization = "bearer " + cinemaToken;
-            request.headers.delete.authorization = "bearer " + cinemaToken;
+        if (isCinema != -1 && cinemaToken && request.headers.type == 'cinema') {
+            if (method === 'post') {
+                request.headers.post.authorization = "bearer " + cinemaToken;
+            } else if (method === 'put') {
+                request.headers.put.authorization = "bearer " + cinemaToken;
+            } else if (method === 'delete') {
+                request.headers.delete.authorization = "bearer " + cinemaToken;
+            }
         }
-
         return request
     })
 
     instance.interceptors.response.use((response) => {
+
         if (response.headers.authorization) {
             if (response.config.url.indexOf('user') != -1) {
                 localStorage.setItem('userToken', response.headers.authorization);
             } else if (response.config.url.indexOf('admin') != -1) {
                 localStorage.setItem('adminToken', response.headers.authorization);
-            } else {
+            } else if (response.config.url.indexOf('cinema') != -1) {
                 localStorage.setItem('cinemaToken', response.headers.authorization);
             }
         }
@@ -64,7 +78,7 @@ export default function() {
                 localStorage.removeItem('userToken');
             } else if (err.response.config.url === '/api/admin/whoami') {
                 localStorage.removeItem('adminToken');
-            } else {
+            } else if (err.response.config.url === '/api/cinema/whoami') {
                 localStorage.removeItem('cinemaToken');
             }
         }

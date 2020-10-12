@@ -77,7 +77,7 @@
             searchMovie(val) {
                 this.$api.getMovieList({
                     name: val
-                }).then(res => {
+                },'user').then(res => {
                     this.$router.push({ name: 'movieDetail', params: { id: res.data[0].id } })
                 })
             },
@@ -89,7 +89,7 @@
                         this.loading = false;
                         this.$api.getMovieList({
                             name: query
-                        }).then(res => {
+                        },'user').then(res => {
                             if (res.data) {
                                 this.options = res.data.map(item => {
                                     return item.name
@@ -113,17 +113,17 @@
         created() {
             this.$api.getCityList({
                 limit: 500
-            }).then(res => {
+            },'user').then(res => {
                 this.cityList = res.data;
             })
 
-            this.$api.getCityFindById(this.$store.state.CityId).then(res => {
+            this.$api.getCityFindById(this.$store.state.CityId,'user').then(res => {
                 this.cityName = res.city;
             })
         },
         watch: {
             CityId() {
-                this.$api.getCityFindById(this.$store.state.CityId).then(res => {
+                this.$api.getCityFindById(this.$store.state.CityId,'user').then(res => {
                     this.cityName = res.city;
                 })
             },

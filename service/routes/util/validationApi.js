@@ -20,6 +20,10 @@ module.exports = [
         path: '/api/admin/whoami'
     },
     {
+        method: 'POST',
+        path: '/api/cinema/whoami'
+    },
+    {
         method: 'PUT',
         path: '/api/user/:id'
     },

@@ -111,9 +111,13 @@
             }
         },
         created() {
-            if (this.$store.state.loginUser.name == undefined) {
-                this.$router.push({ name: 'login' })
-            }
+            setTimeout(() => {
+                if (this.$store.state.loginUser.name == undefined) {
+                    this.$router.push({ name: 'login' })
+                }
+                return;
+            },1000);
+
             this.paymentData = JSON.parse(localStorage.getItem('payment'));
 
             this.seatData = JSON.parse(this.paymentData.seat);
@@ -125,7 +129,7 @@
             }
         },
         methods: {
-            handleHide(){
+            handleHide() {
                 this.seatCount = 0;
                 this.flag = true;
             },
@@ -144,15 +148,15 @@
 
                 this.$api.updateSession(this.paymentData.id, {
                     seat: JSON.stringify(this.seatData)
-                }).then(res => {
+                },'user').then(res => {
                     if (res) {
                         this.$api.addOrderList({
-                            number:this.seatCount,
-                            CinemaId:this.paymentData.CinemaId,
-                            UserId:this.$store.state.loginUser.id,
-                            MovieId:this.paymentData.MovieId,
-                            SessionId:this.paymentData.id
-                        })
+                            number: this.seatCount,
+                            CinemaId: this.paymentData.CinemaId,
+                            UserId: this.$store.state.loginUser.id,
+                            MovieId: this.paymentData.MovieId,
+                            SessionId: this.paymentData.id
+                        },'user')
 
                         setTimeout(() => {
                             this.flag = false;

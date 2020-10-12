@@ -79,9 +79,12 @@
             },
         },
         created() {
-            if (this.$store.state.loginAdmin.name === undefined) {
-                this.$router.push({ name: 'adminLogin' })
-            }
+            setTimeout(() => {
+                if (this.$store.state.loginAdmin.name === undefined) {
+                    this.$router.push({ name: 'adminLogin' })
+                }
+
+            }, 1000);
             this.getData();
         },
         methods: {
@@ -91,14 +94,14 @@
                     limit: this.limit,
                     page: this.nowPage,
                     ...options
-                }).then(res => {
+                },'admin').then(res => {
                     this.total = res.count;
                     this.orderData = res.data;
                     this.loading = false;
                 })
             },
-            handleChange(){
-                if(this.searchOrderId === '' && this.searchUserId === '' && this.searchCinemaId === '' && this.searchMovieId === ''){
+            handleChange() {
+                if (this.searchOrderId === '' && this.searchUserId === '' && this.searchCinemaId === '' && this.searchMovieId === '') {
                     this.getData();
                     return;
                 }
@@ -110,12 +113,12 @@
                 this.nowPage = page;
             },
             handleSearchOrderId() {
-                if(this.searchOrderId === ''){
+                if (this.searchOrderId === '') {
                     this.getData();
                     return;
                 }
                 this.loading = true;
-                this.$api.getOrderFindById(this.searchOrderId).then(res => {
+                this.$api.getOrderFindById(this.searchOrderId,'admin').then(res => {
                     if (res) {
                         this.total = 1;
                         this.orderData = [res];
@@ -124,7 +127,7 @@
                 })
             },
             handleSearchUserId() {
-                if(this.searchUserId === ''){
+                if (this.searchUserId === '') {
                     this.getData();
                     return;
                 }
@@ -133,7 +136,7 @@
                 })
             },
             handleSearchCinemaId() {
-                if(this.searchCinemaId === ''){
+                if (this.searchCinemaId === '') {
                     this.getData();
                     return;
                 }
@@ -142,7 +145,7 @@
                 })
             },
             handleSearchMovieId() {
-                if(this.searchMovieId === ''){
+                if (this.searchMovieId === '') {
                     this.getData();
                     return;
                 }

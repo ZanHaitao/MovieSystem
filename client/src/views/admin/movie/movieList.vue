@@ -107,7 +107,7 @@
                 dialogFormVisible: false,
                 formLabelWidth: '120px',
                 form: {
-                    id:'',
+                    id: '',
                     name: '',
                     type: '',
                     duration: '',
@@ -131,9 +131,12 @@
             },
         },
         created() {
-            if (this.$store.state.loginAdmin.name === undefined) {
-                this.$router.push({ name: 'adminLogin' })
-            }
+            setTimeout(() => {
+                if (this.$store.state.loginAdmin.name === undefined) {
+                    this.$router.push({ name: 'adminLogin' })
+                }
+            }, 1000);
+
             this.getData();
         },
         methods: {
@@ -158,7 +161,7 @@
                     score: this.form.score,
                     income: this.form.income,
                     introduce: this.form.introduce,
-                }).then(res => {
+                },'admin').then(res => {
                     if (res) {
                         this.dialogFormVisible = false;
                         this.success('修改成功');
@@ -185,7 +188,7 @@
                     cancelButtonText: '取消',
                     type: 'warning'
                 }).then(() => {
-                    this.$api.deleteMovie(row.id).then(res => {
+                    this.$api.deleteMovie(row.id,'admin').then(res => {
                         if (res) {
                             this.$message({
                                 type: 'success',
@@ -227,7 +230,7 @@
                     limit: this.limit,
                     page: this.nowPage,
                     ...options
-                }).then(res => {
+                },'admin').then(res => {
                     this.total = res.count;
                     this.movieData = res.data;
                     this.loading = false;
@@ -245,7 +248,7 @@
                     return
                 }
                 this.loading = true;
-                this.$api.getMovieFindById(this.searchMovieId).then(res => {
+                this.$api.getMovieFindById(this.searchMovieId,'admin').then(res => {
                     if (res) {
                         this.total = 1;
                         this.movieData = [res];

@@ -93,7 +93,7 @@
                     score: this.score * 2,
                     likes: 0,
                     publishDate: `${nowDate.getFullYear() }-${nowDate.getMonth()+1 }-${nowDate.getDate()+1 }`
-                }).then(res => {
+                },'user').then(res => {
                     if(res){
                         this.changeData();
                         this.success();
@@ -118,7 +118,7 @@
             changeData() {
                 this.$api.getCommentList({
                     movieid: this.movieId
-                }).then(res => {
+                },'user').then(res => {
                     this.commentsData = res.data;
                 })
             },

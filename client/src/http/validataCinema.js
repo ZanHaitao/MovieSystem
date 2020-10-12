@@ -1,0 +1,66 @@
+export default [
+    {
+        method:'post',
+        path:'/api/cinema/whoami'
+    },
+    {
+        method: 'get',
+        path:'/api/user'
+    },
+    {
+        method: 'get',
+        path:'/api/order'
+    },
+    {
+        method: 'put',
+        path:'/api/cinema'
+    },
+    {
+        method: 'get',
+        path:'/api/cinema'
+    },
+    {
+        method:'get',
+        path:'/api/session'
+    },
+    {
+        method:'put',
+        path:'/api/session'
+    },
+    {
+        method:'post',
+        path:'/api/session'
+    },
+    {
+        method:'delete',
+        path:'/api/session'
+    },
+    {
+        method:'post',
+        path:'/api/session'
+    },
+    {
+        method:'get',
+        path:'/api/screen'
+    },
+    {
+        method:'get',
+        path:'/api/movie'
+    },
+    {
+        method:'post',
+        path:'/api/movieserver'
+    },
+    {
+        method:'get',
+        path:'/api/movieserver'
+    },
+    {
+        method:'put',
+        path:'/api/movieserver'
+    },
+    {
+        method:'delete',
+        path:'/api/movieserver'
+    },
+]

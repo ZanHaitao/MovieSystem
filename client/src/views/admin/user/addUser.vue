@@ -141,7 +141,7 @@
                             sex: this.ruleForm.UserSex === '男' ? true : false,
                             birthday: this.ruleForm.Birthday,
                             mobile: this.ruleForm.Mobile,
-                        }).then(res => {
+                        },'admin').then(res => {
                             if (res) {
                                 this.success();
                                 this.$router.push({ name: 'userList' })

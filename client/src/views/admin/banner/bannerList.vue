@@ -90,9 +90,12 @@
             },
         },
         created() {
-            if (this.$store.state.loginAdmin.name === undefined) {
-                this.$router.push({ name: 'adminLogin' })
-            }
+            setTimeout(() => {
+                if (this.$store.state.loginAdmin.name === undefined) {
+                    this.$router.push({ name: 'adminLogin' })
+                }
+            }, 1000);
+
             this.getData();
         },
         methods: {
@@ -109,8 +112,8 @@
                 this.dialogFormVisible = true;
 
             },
-            handleEditBanner(){
-                if(this.form.title =='' || this.form.imgUrl == ''){
+            handleEditBanner() {
+                if (this.form.title == '' || this.form.imgUrl == '') {
                     this.warning();
                     return;
                 }
@@ -118,7 +121,7 @@
                 this.$api.updateBanner(this.form.id, {
                     title: this.form.title,
                     imgUrl: this.form.imgUrl,
-                }).then(res => {
+                },'admin').then(res => {
                     if (res) {
                         this.dialogFormVisible = false;
                         this.success('修改成功');
@@ -132,7 +135,7 @@
                     cancelButtonText: '取消',
                     type: 'warning'
                 }).then(() => {
-                    this.$api.deleteBanner(row.id).then(res => {
+                    this.$api.deleteBanner(row.id,'admin').then(res => {
                         if (res) {
                             this.$message({
                                 type: 'success',
@@ -174,7 +177,7 @@
                     limit: this.limit,
                     page: this.nowPage,
                     ...options
-                }).then(res => {
+                },'admin').then(res => {
                     this.total = res.count;
                     this.bannerData = res.data;
                     this.loading = false;
@@ -192,7 +195,7 @@
                     return
                 }
                 this.loading = true;
-                this.$api.getBannerFindById(this.searchBannerId).then(res => {
+                this.$api.getBannerFindById(this.searchBannerId,'admin').then(res => {
 
                     if (res) {
                         this.total = 1;

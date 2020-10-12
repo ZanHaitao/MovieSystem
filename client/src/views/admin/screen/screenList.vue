@@ -110,6 +110,7 @@
                     id: '',
                     name: '',
                     seat: [],
+                    people: 0
                 },
             }
         },
@@ -124,17 +125,21 @@
             },
         },
         created() {
-            if (this.$store.state.loginAdmin.name === undefined) {
-                this.$router.push({ name: 'adminLogin' })
-            }
+            setTimeout(() => {
+                if (this.$store.state.loginAdmin.name === undefined) {
+                    this.$router.push({ name: 'adminLogin' })
+                }
+            }, 1000);
             this.getData();
         },
         methods: {
-            handleClick(item,index){
-                if(item[index] === 0){
+            handleClick(item, index) {
+                if (item[index] === 0) {
                     item.splice(index, 1, 3);
-                }else{
+                    this.form.people--;
+                } else {
                     item.splice(index, 1, 0);
+                    this.form.people++;
                 }
             },
             handleChange() {
@@ -146,6 +151,7 @@
             handleEdit(row) {
                 this.form.id = row.id;
                 this.form.name = row.name
+                this.form.people = row.people
                 this.form.seat = JSON.parse(row.seat)
                 this.dialogFormVisible = true;
 
@@ -159,7 +165,8 @@
                 this.$api.updateScreens(this.form.id, {
                     name: this.form.name,
                     seat: JSON.stringify(this.form.seat),
-                }).then(res => {
+                    people: this.form.people
+                },'admin').then(res => {
                     if (res) {
                         this.dialogFormVisible = false;
                         this.success('修改成功');
@@ -173,7 +180,7 @@
                     cancelButtonText: '取消',
                     type: 'warning'
                 }).then(() => {
-                    this.$api.deleteScreens(row.id).then(res => {
+                    this.$api.deleteScreens(row.id,'admin').then(res => {
                         if (res) {
                             this.$message({
                                 type: 'success',
@@ -215,7 +222,7 @@
                     limit: this.limit,
                     page: this.nowPage,
                     ...options
-                }).then(res => {
+                },'admin').then(res => {
                     this.total = res.count;
                     this.screenData = res.data;
                     this.loading = false;
@@ -233,7 +240,7 @@
                     return
                 }
                 this.loading = true;
-                this.$api.getScreensFindById(this.searchScreenId).then(res => {
+                this.$api.getScreensFindById(this.searchScreenId,'admin').then(res => {
 
                     if (res) {
                         this.total = 1;

@@ -8,6 +8,7 @@ export default new Vuex.Store({
         CityId: 220,
         loginUser: {},
         loginAdmin: {},
+        loginCinema: {},
     },
     mutations: {
         setCityId(state, payload) {
@@ -18,6 +19,9 @@ export default new Vuex.Store({
         },
         setLoginAdmin(state, payload) {
             state.loginAdmin = payload
+        },
+        setLoginCinema(state, payload) {
+            state.loginCinema = payload
         }
     },
     actions: {
@@ -29,6 +33,9 @@ export default new Vuex.Store({
         },
         changeAdmin({ commit }, payload) {
             commit('setLoginAdmin', payload);
+        },
+        changeCinema({ commit }, payload) {
+            commit('setLoginCinema', payload);
         }
     },
     modules: {}

@@ -66,9 +66,12 @@
             }
         },
         created() {
-            if (this.$store.state.loginAdmin.name === undefined) {
-                this.$router.push({ name: 'adminLogin' })
-            }
+            setTimeout(() => {
+                if (this.$store.state.loginAdmin.name === undefined) {
+                    this.$router.push({ name: 'adminLogin' })
+                }
+            }, 1000);
+
 
         },
         methods: {
@@ -87,7 +90,7 @@
                     score: this.form.score,
                     income: this.form.income,
                     introduce: this.form.introduce,
-                }).then(res => {
+                },'admin').then(res => {
                     if (res) {
                         this.success();
                         this.$router.push({ name: 'movieList' })

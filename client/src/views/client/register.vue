@@ -130,7 +130,7 @@
                             sex: this.ruleForm.UserSex === '男' ? true : false,
                             birthday: this.ruleForm.Birthday,
                             mobile: this.ruleForm.Mobile,
-                        }).then(res => {
+                        },'user').then(res => {
                             if (typeof res === 'object') {
                                 this.success(res.name);
                                 this.$router.push({ name: 'login' })

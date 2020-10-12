@@ -17,7 +17,7 @@ exports.loginCinema = async function(loginId, loginPwd) {
             loginId,
             loginPwd
         },
-        attributes: ['name', 'loginId', 'address', 'mobile', 'imgUrl', 'CityId']
+        attributes: ['id', 'name', 'loginId', 'address', 'mobile', 'imgUrl', 'CityId']
     });
     if (result) {
         return result.toJSON();
@@ -30,7 +30,6 @@ exports.loginCinema = async function(loginId, loginPwd) {
  * @param {*} cinemaObj 
  */
 exports.addCinema = async function(cinemaObj) {
-    console.log(cinemaObj);
     cinemaObj = pick(cinemaObj, 'name', 'address', 'mobile', 'imgUrl', 'CityId', 'loginId', 'loginPwd')
     cinemaObj.loginPwd = md5(cinemaObj.loginPwd);
     const result = await Cinema.create(cinemaObj);

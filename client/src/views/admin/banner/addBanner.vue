@@ -36,9 +36,12 @@
             }
         },
         created() {
-            if (this.$store.state.loginAdmin.name === undefined) {
-                this.$router.push({ name: 'adminLogin' })
-            }
+            setTimeout(() => {
+                if (this.$store.state.loginAdmin.name === undefined) {
+                    this.$router.push({ name: 'adminLogin' })
+                }
+            }, 1000);
+
 
         },
         methods: {
@@ -57,7 +60,7 @@
                     } else {
                         this.error();
                     }
-                })
+                },'admin')
             },
             success() {
                 this.$notify({

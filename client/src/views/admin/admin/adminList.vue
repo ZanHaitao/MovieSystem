@@ -96,13 +96,16 @@
             },
         },
         created() {
-            if (this.$store.state.loginAdmin.name === undefined) {
-                this.$router.push({ name: 'adminLogin' })
-            }
+            setTimeout(() => {
+                if (this.$store.state.loginAdmin.name === undefined) {
+                    this.$router.push({ name: 'adminLogin' })
+                }
+            }, 1000);
+
             this.getData();
         },
         methods: {
-            handleChange(){
+            handleChange() {
                 if (this.searchAdminId === '' && this.searchLoginId === '' && this.searchName === '') {
                     this.getData();
                     return
@@ -221,10 +224,10 @@
         watch: {
             nowPage() {
                 const options = {}
-                if(this.searchLoginId !== ''){
+                if (this.searchLoginId !== '') {
                     options.loginid = this.searchLoginId;
                 }
-                if(this.searchName !== ''){
+                if (this.searchName !== '') {
                     options.name = this.searchName;
                 }
                 this.getData(options);

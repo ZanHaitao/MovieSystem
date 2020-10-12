@@ -10,6 +10,7 @@ import './assets/scss/util/util.scss'
 
 api.whoAmI().then(res => {
     if (res.data !== null) {
+        console.log("获取用户成功");
         store.dispatch('changeUser', res)
     }
 }).catch(err => {
@@ -18,11 +19,23 @@ api.whoAmI().then(res => {
 
 api.adminWhoAmI().then(res => {
     if (res) {
+        console.log("获取管理员成功");
+
         store.dispatch('changeAdmin', res);
     }
 }).catch(err => {
-    console.log("未获取到用户")
+    console.log("未获取到管理员")
 });
+
+api.cinemaWhoAmI().then(res => {
+    if (res) {
+        console.log("获取影院用户成功");
+        store.dispatch('changeCinema', res);
+    }
+}).catch(err => {
+    console.log("未获取到影院用户")
+});
+
 
 Vue.prototype.$api = api
 

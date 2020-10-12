@@ -15,13 +15,13 @@ module.exports = (req, res, next) => {
         next();
         return;
     }
-    
+
     let result;
     if (req.headers.type === 'user') {
         result = jwt.verify(req, 'user');
     } else if (req.headers.type === 'admin') {
         result = jwt.verify(req, 'admin');
-    } else {
+    } else if(req.headers.type === 'cinema') {
         result = jwt.verify(req, 'cinema');
     }
     if (result) {
@@ -30,9 +30,12 @@ module.exports = (req, res, next) => {
             req.token.UserId = result.UserId;
         } else if (result.AdminId) {
             req.token.AdminId = result.AdminId;
+        }else if(result.CinemaId){
+            req.token.CinemaId = result.CinemaId;
         }
         next();
     } else {
         res.status(403).send(util.sendMsg(403, "请登录后访问！"));
+        return;
     }
 }

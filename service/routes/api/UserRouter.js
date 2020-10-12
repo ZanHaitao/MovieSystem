@@ -81,6 +81,7 @@ router.post('/whoami', asyncHandler(async (req, res) => {
         return await UserService.getUserFindById(req.token.UserId);
     } else {
         res.send(null);
+        return;
     }
 }));
 

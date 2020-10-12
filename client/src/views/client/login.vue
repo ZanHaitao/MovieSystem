@@ -22,7 +22,7 @@
 </template>
 
 <script>
-import loginVue from '../admin/login.vue';
+    import loginVue from '../admin/login.vue';
     export default {
         data() {
             const validateLoginId = (rule, value, callback) => {
@@ -61,9 +61,11 @@ import loginVue from '../admin/login.vue';
             }
         },
         created() {
-            if(this.$store.state.loginUser.name !== undefined){
-                this.$router.push({name:'index'})
-            }
+            setTimeout(() => {
+                if (this.$store.state.loginUser.name !== undefined) {
+                    this.$router.push({ name: 'index' })
+                }
+            }, 1000)
         },
         methods: {
             submitForm(formName) {

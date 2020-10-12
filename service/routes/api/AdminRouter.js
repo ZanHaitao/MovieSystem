@@ -28,6 +28,7 @@ router.post('/whoami', asyncHandler(async (req, res) => {
         return result;
     } else {
         res.send(null);
+        return;
     }
 }));
 
